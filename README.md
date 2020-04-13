@@ -6,9 +6,19 @@ This is the code and note repository for learning Scala Programming.
 * Install `SBT` - used `1.3.3`
 * Install IDE of your choice which supports Scala (IDEA Community Edition with Scala plugin is preferred)- Used `2.11.12` and `2.13.1`
 
-### Install references:
+## Install references:
 * https://www.scala-lang.org/download/2.12.6.html
 * [Windows] https://www.journaldev.com/7456/download-install-scala-linux-unix-windows
+
+## About Scala
+### Functional Programming: 
+Functional programming is a programming paradigm - a style of building the structure and elements of a computer program that treats computation as the evaluation of mathematical functions and avoids changing states and mutable data. 
+
+### Pure functions:
+A pure function is a function that has the following properties:
+
+  - Its output or return value is the same for same set of inputs/arguments.
+  - Its evaluation has no side effects like: no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams
 
 
 ## Author
