@@ -59,6 +59,46 @@ Scala is also a functional language in the sense that every function is a value.
 
 Scala is statically typed. Scala’s expressive type system enforces, at compile-time, that abstractions are used in a safe and coherent manner. Scala has a built-in type inference mechanism which allows the programmer to omit certain type annotations. Type inference means the user is not required to annotate code with redundant type information.
 
+#### Scala Environment
+There are few thing in scala environment.
+* _Scala Compiler_ - its called `scalac`. Scala compiler compiles Scala source files with .scala extension and creates a byte code files(with extension `.class`)
+* _Scala runtime libraries_ -  Libraries required to run scala code (byte code) in Java Virtual Machine.
+* _Scala Virtual Machine_ - Scala Virtual Machine is actually Java Virtual Machine with additional libraries for Scala (Scala runtime libraries) that provides various concepts, functionality and frameworks that Scala uses. The combination of JVM and the Scala libraries can be referred to as Scala runtime and can be used as interpreter mode (Scala REPL) or batch mode.
+ 
+#### Scala REPS
+
+#### Compile and Run Scala
+```
+// HelloScala.scala
+object HelloScala {
+  def main(args: Array[String]) = {
+    println("Hello Scala");
+  }
+}
+// Compile - creates byte codes (.class)
+$ scalac HelloScala.scala
+
+// Run - Run class file HelloScala.class
+$ scala HelloScala
+> Hello Scala
+```
+As Scala Virtual Machine is a combination of JVM and Scala runtime libraries, you can run java byte codes in Scala runtime environment.
+
+```
+// HelloJava.java
+public class HelloJava {
+    public static void main(String[] args){
+        System.out.println("Hello Java");
+    }
+}
+
+// Compile - creates byte codes (.class) 
+$ javac HelloJava.java
+
+// Run - Run class file HelloJava.class
+$ scala HelloJava
+> Hello Java
+```
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
