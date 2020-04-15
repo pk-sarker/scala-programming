@@ -65,8 +65,24 @@ There are few thing in scala environment.
 * _Scala runtime libraries_ -  Libraries required to run scala code (byte code) in Java Virtual Machine.
 * _Scala Virtual Machine_ - Scala Virtual Machine is actually Java Virtual Machine with additional libraries for Scala (Scala runtime libraries) that provides various concepts, functionality and frameworks that Scala uses. The combination of JVM and the Scala libraries can be referred to as Scala runtime and can be used as interpreter mode (Scala REPL) or batch mode.
  
-#### Scala REPS
+#### Scala REPL
+Scala REPL (Read-Evaluate-Print-Loop) is a commandline interpreter to that you may use for quick test Scala code. To start Scala REPL write `scala` in terminal/command prompt. You should see like below
+```scala
+scala-programming pijus$ scala
+Welcome to Scala 2.13.0 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_221).
+Type in expressions for evaluation. Or try :help.
 
+scala> 
+scala> 1 + 2
+res0: Int = 3
+```
+If you don't assign any variable the interpreter will automatically create variables starting with `res`. There will be sequential numbers after the variable prefix, like `res0`, `res1`, `res2` etc. 
+
+To exit Scala REPL press `Ctrl-D` or write `:quit`
+```scala
+scala>:quit
+```
+ 
 #### Compile and Run Scala
 ```
 // HelloScala.scala
