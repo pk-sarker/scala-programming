@@ -84,7 +84,7 @@ scala>:quit
 ```
  
 #### Compile and Run Scala
-```
+```scala
 // HelloScala.scala
 object HelloScala {
   def main(args: Array[String]) = {
@@ -100,7 +100,7 @@ $ scala HelloScala
 ```
 As Scala Virtual Machine is a combination of JVM and Scala runtime libraries, you can run java byte codes in Scala runtime environment.
 
-```
+```Java
 // HelloJava.java
 public class HelloJava {
     public static void main(String[] args){
