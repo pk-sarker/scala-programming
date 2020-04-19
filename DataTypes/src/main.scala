@@ -4,8 +4,8 @@ object main extends App {
   val l: Long = 1
   val s: Short = 1
   val d: Double = 2.0
-  val f: Float = 3.
+  //val f: Float = 3.0
 
-  var b = BigInt(1234567890)
-  var b = BigDecimal(123456.789)
+  var bi = BigInt(1234567890)
+  var bd = BigDecimal(123456.789)
 }

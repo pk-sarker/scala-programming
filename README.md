@@ -1,12 +1,28 @@
 # Scala Programming
 This is the code and note repository for learning Scala Programming.
 
+## Table of Contents
+- [Prerequisites & Installation](#prerequisites-&-installation)
+- [About Scala](#about-scala)
+    * [Object Oriented Programming](#object-oriented-programming)
+    * [Functional Programming](#functional-programming)
+    * [Pure function](#pure-function)
+    * [Immutable](#immutable)
+    * [Scala](#scala)
+    * [Scala Environment](#scala-environment)
+    * [Scala REPL](#scala-repl)
+    * [Compile and Run Scala](#compile-and-run-scala)
+- [Variables](#variables)
+- [Data Types](#data-types)
+
+- [Reference](#reference)
+    
 ## Prerequisites & Installation
 * Install `Java` 8 - used JDK `1.8.0_221`
 * Install `SBT` - used `1.3.3`
 * Install IDE of your choice which supports Scala (IDEA Community Edition with Scala plugin is preferred)- Used `2.11.12` and `2.13.1`
 
-## Install references:
+Install references:
 * https://www.scala-lang.org/download/2.12.6.html
 * [Windows] https://www.journaldev.com/7456/download-install-scala-linux-unix-windows
 
@@ -36,36 +52,13 @@ Scala is also a functional language in the sense that every function is a value.
 
 Scala is statically typed. Scala’s expressive type system enforces, at compile-time, that abstractions are used in a safe and coherent manner. Scala has a built-in type inference mechanism which allows the programmer to omit certain type annotations. Type inference means the user is not required to annotate code with redundant type information.
 
-
-### Functional Programming: 
-Functional programming is a programming paradigm - a style of building the structure and elements of a computer program that treats computation as the evaluation of mathematical functions and avoids changing states and mutable data. 
-
-### Pure function:
-A pure function is a function that has the following properties:
-
-  - Its output or return value is the same for same set of inputs/arguments.
-  - Its evaluation has no side effects like: no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams
-### Immutable
-In object-oriented and functional programming, an immutable object is an object whose state cannot be modified after it is created.
-
-### Scala
-Scala is a modern multi-paradigm programming language designed to express common programming patterns in a concise, elegant, and type-safe way. It is a general-purpose programming language providing support for functional programming and a strong static type system.
-
-Scala source code is intended to be compiled to Java bytecode, so that the resulting executable code runs on a Java virtual machine. Scala provides language interoperability with Java, so that libraries written in either language may be referenced directly in Scala or Java code. Like Java, Scala is object-oriented, and uses a curly-brace syntax reminiscent of the `C` programming language.
-
-Scala is a pure object-oriented language in the sense that every value is an object. Types and behaviors of objects are described by classes and traits. Classes can be extended by subclassing, and by using a flexible mixin-based composition mechanism as a clean replacement for multiple inheritance.
-
-Scala is also a functional language in the sense that every function is a value. Scala provides a lightweight syntax for defining anonymous functions, it supports higher-order functions, it allows functions to be nested, and it supports currying.
-
-Scala is statically typed. Scala’s expressive type system enforces, at compile-time, that abstractions are used in a safe and coherent manner. Scala has a built-in type inference mechanism which allows the programmer to omit certain type annotations. Type inference means the user is not required to annotate code with redundant type information.
-
-#### Scala Environment
+### Scala Environment
 There are few thing in scala environment.
 * _Scala Compiler_ - its called `scalac`. Scala compiler compiles Scala source files with .scala extension and creates a byte code files(with extension `.class`)
 * _Scala runtime libraries_ -  Libraries required to run scala code (byte code) in Java Virtual Machine.
 * _Scala Virtual Machine_ - Scala Virtual Machine is actually Java Virtual Machine with additional libraries for Scala (Scala runtime libraries) that provides various concepts, functionality and frameworks that Scala uses. The combination of JVM and the Scala libraries can be referred to as Scala runtime and can be used as interpreter mode (Scala REPL) or batch mode.
  
-#### Scala REPL
+### Scala REPL
 Scala REPL (Read-Evaluate-Print-Loop) is a commandline interpreter to that you may use for quick test Scala code. To start Scala REPL write `scala` in terminal/command prompt. You should see like below
 ```scala
 scala-programming pijus$ scala
@@ -83,7 +76,7 @@ To exit Scala REPL press `Ctrl-D` or write `:quit`
 scala>:quit
 ```
  
-#### Compile and Run Scala
+### Compile and Run Scala
 ```scala
 // HelloScala.scala
 object HelloScala {
@@ -346,6 +339,20 @@ res5: Int = 2
 scala> Integer.parseInt("11", 2)
 res6: Int = 3
 ```
+
+Converting String to a numeric data type may throw `NumberFormatException`. 
+For Scala functions it is not required to declare that the methods can throw an exception.
+```scala
+// not required to declare "throws NumberFormatException"
+def toInt(s: String) = s.toInt
+```
+If you prefer to declare that your method can throw an exception, mark it with the
+`@throws` annotation. This approach is required if the function is called from Java code.
+```scala
+@throws(classOf[NumberFormatException])
+def toInt(s: String) = s.toInt
+```
+
 
 
 ### Reference
