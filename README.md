@@ -235,20 +235,13 @@ Data types and their ranges:
 | Data Type | Possible Values |
 | --- | --- |
 | Boolean | true or false |
-| Byte	| 8-bit signed two’s complement integer (-2^7 to 2^7-1, inclusive)
-  -128 to 127 |
-| Short	| 16-bit signed two’s complement integer (-2^15 to 2^15-1, inclusive)
-  -32,768 to 32,767 |
-| Int | 32-bit two’s complement integer (-2^31 to 2^31-1, inclusive)
-  -2,147,483,648 to 2,147,483,647 |
-| Long | 64-bit two’s complement integer (-2^63 to 2^63-1, inclusive)
-  (-2^63 to 2^63-1, inclusive) |
-| Float | 32-bit IEEE 754 single-precision float
-  1.40129846432481707e-45 to 3.40282346638528860e+38 |
-| Double | 64-bit IEEE 754 double-precision float
-  4.94065645841246544e-324d to 1.79769313486231570e+308d |
-| Char | 16-bit unsigned Unicode character (0 to 2^16-1, inclusive)
-  0 to 65,535 |
+| Byte	| 8-bit signed two’s complement integer (-2^7 to 2^7-1, inclusive), -128 to 127 |
+| Short	| 16-bit signed two’s complement integer (-2^15 to 2^15-1, inclusive), -32,768 to 32,767 |
+| Int | 32-bit two’s complement integer (-2^31 to 2^31-1, inclusive), -2,147,483,648 to 2,147,483,647 |
+| Long | 64-bit two’s complement integer (-2^63 to 2^63-1, inclusive), (-2^63 to 2^63-1, inclusive) |
+| Float | 32-bit IEEE 754 single-precision float, 1.40129846432481707e-45 to 3.40282346638528860e+38 |
+| Double | 64-bit IEEE 754 double-precision float, 4.94065645841246544e-324d to 1.79769313486231570e+308d |
+| Char | 16-bit unsigned Unicode character (0 to 2^16-1, inclusive), 0 to 65,535 |
 | String | a sequence of Char |
 
 To check exact value of the data ranges
@@ -335,6 +328,23 @@ res27: Double = 10.123456
 
 scala> "10".toFloat
 res26: Float = 10.0
+```
+
+To perform calculations using base other than 10 , you’ll find the toInt method in the Scala Int class doesn’t have a method that lets you pass in a base and radix. \
+To solve this problem, use the `parseInt` method in the `java.lang.Integer` class,
+as shown in these examples
+```shell script
+scala> Integer.parseInt("0", 2)
+res3: Int = 0
+
+scala> Integer.parseInt("1", 2)
+res4: Int = 1
+
+scala> Integer.parseInt("10", 2)
+res5: Int = 2
+
+scala> Integer.parseInt("11", 2)
+res6: Int = 3
 ```
 
 
