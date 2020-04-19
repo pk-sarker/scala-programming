@@ -162,6 +162,52 @@ $ scala HelloScala3 Pijus
 > Hi, Pijus
 ```
 
+
+### Variables
+In java each variable declaration is preceded by its type. Like
+```java
+class Test {
+    String str = new String();
+    int year = 2020;
+    Integer day = 13;
+}
+
+Test testObject = new Test();
+```
+but in Scala there are two type of variables:
+* `val` creates an *immutable* variable, like final in Java.
+* `var` creates an *mutable* variable.
+We can reassign/change values in variable defined by `var` keyword as long as the data type is same as initial one. We can reassign/change values in variable defined by `var` keyword as long as the data type is same as initial one. 
+Data type can't be change once the data type is assigned to the variable. 
+```scala
+var str = "Hello Scala" // Mutable
+val year = 2020; // Immutable 
+val day = 13; // Immutable 
+
+// Reassign 
+day = 14;
+<console>:12: error: reassignment to val
+       day = 14
+
+str = "Hello ABC";
+```
+Scala compiler determines the data type of variable is compile time. Scala compiler is usually smart enough to infer the variable’s data type from the code on the right side of the `=` sign. We can also explicitly define the data type of a variable as well.
+```scala
+scala> var abc: String = "abc"
+abc: String = abc
+
+scala> var abc1 = "abc"
+abc1: String = abc // infer data type 
+```
+As the variable data type inferred in compile time, the variables need to be initialized to be defined except `traits` and `abstract classes`. \
+And defining data type is optional in variable declaration.
+
+```scala
+val obj = new Chocolate("Dark")              // preferred
+val obj: Chocolate = new Chocolate("Dark")   // unnecessarily verbose
+```
+
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
