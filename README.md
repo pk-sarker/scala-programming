@@ -208,6 +208,136 @@ val obj: Chocolate = new Chocolate("Dark")   // unnecessarily verbose
 ```
 
 
+## Data Types
+In Scala all standard numeric data types are objects, not primitive data types. \
+Example of basic numeric data types
+```scala
+val b: Byte = 1
+val x: Int = 1
+val l: Long = 1
+val s: Short = 1
+val d: Double = 2.0
+val f: Float = 3.0
+```
+If type is not explicitly defined `val x = 1` will default to an `Int`. \
+So if you want one of the other data types — `Byte`, `Long`, or `Short` — you need to explicitly declare those types, as shown.\
+
+Numbers with a decimal (like 2.0) will default to a `Double`, so if you want a Float you need to declare a Float, as shown in the last example.\
+Because `Int` and `Double` are the default numeric types, you typically create them without explicitly declaring the data type:
+```scala
+val i = 123   // defaults to Int
+val x = 1.0   // defaults to Double
+```
+
+
+Data types and their ranges:
+
+| Data Type | Possible Values |
+| --- | --- |
+| Boolean | true or false |
+| Byte	| 8-bit signed two’s complement integer (-2^7 to 2^7-1, inclusive)
+  -128 to 127 |
+| Short	| 16-bit signed two’s complement integer (-2^15 to 2^15-1, inclusive)
+  -32,768 to 32,767 |
+| Int | 32-bit two’s complement integer (-2^31 to 2^31-1, inclusive)
+  -2,147,483,648 to 2,147,483,647 |
+| Long | 64-bit two’s complement integer (-2^63 to 2^63-1, inclusive)
+  (-2^63 to 2^63-1, inclusive) |
+| Float | 32-bit IEEE 754 single-precision float
+  1.40129846432481707e-45 to 3.40282346638528860e+38 |
+| Double | 64-bit IEEE 754 double-precision float
+  4.94065645841246544e-324d to 1.79769313486231570e+308d |
+| Char | 16-bit unsigned Unicode character (0 to 2^16-1, inclusive)
+  0 to 65,535 |
+| String | a sequence of Char |
+
+To check exact value of the data ranges
+```shell script
+scala> Byte.MinValue
+res6: Byte = -128
+
+scala> Byte.MaxValue
+res7: Byte = 127
+
+scala> Short.MinValue
+res8: Short = -32768
+
+scala> Short.MaxValue
+res9: Short = 32767
+
+scala> Int.MinValue
+res10: Int = -2147483648
+
+scala> Int.MaxValue
+res11: Int = 2147483647
+
+scala> Long.MinValue
+res12: Long = -9223372036854775808
+
+scala> Long.MaxValue
+res13: Long = 9223372036854775807
+
+scala> Float.MinValue
+res14: Float = -3.4028235E38
+
+scala> Float.MaxValue
+res15: Float = 3.4028235E38
+
+scala> Double.MinValue
+res16: Double = -1.7976931348623157E308
+
+scala> Double.MaxValue
+res17: Double = 1.7976931348623157E308
+```
+
+For large numbers Scala also includes the types `BigInt` and `BigDecimal`.
+```scala
+var b = BigInt(1234567890)
+var b = BigDecimal(123456.789)
+```
+A great thing about `BigInt` and `BigDecimal` is that they support all the operators you’re used to using with numeric types:
+```shell script
+scala> var b = BigInt(1234567890)
+b: scala.math.BigInt = 1234567890
+
+scala> b + b
+res0: scala.math.BigInt = 2469135780
+
+scala> b * b
+res1: scala.math.BigInt = 1524157875019052100
+
+scala> b += 1
+
+scala> println(b)
+1234567891
+```
+
+**Parsing numbers from string**
+Use the `to*` methods that are available on a String (courtesy of the `StringLike` trait):
+```shell script
+scala> "10".toInt
+res21: Int = 10
+
+scala> "10".toByte
+res22: Byte = 10
+
+scala> "10".toLong
+res23: Long = 10
+
+scala> "10".toShort
+res24: Short = 10
+
+scala> "10".toDouble
+res25: Double = 10.0
+ 
+scala> "10.123456".toDouble
+res27: Double = 10.123456
+
+scala> "10".toFloat
+res26: Float = 10.0
+```
+
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
