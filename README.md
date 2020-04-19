@@ -115,6 +115,53 @@ $ javac HelloJava.java
 $ scala HelloJava
 > Hello Java
 ```
+
+We can check the codes by disassembling both `HelloScala.class` and `HelloJava.class`.
+```shell script
+$ javap HelloJava.class
+Compiled from "HelloJava.java"
+public class HelloJava {
+  public HelloJava();
+  public static void main(java.lang.String[]);
+}
+
+$ javap HelloScala.class
+Compiled from "HelloScala.scala"
+public final class HelloScala {
+  public static void main(java.lang.String[]);
+}
+```
+As that output shows, the `javap` command reads that `.class` file just as if it was created from Java source code. Scala code runs on the JVM and can use existing Java libraries.
+
+In `HelloScala.scala` example `main` methods is used, but Scala provides a way to write applications more conveniently. Instead of including `main` method use `App` trait. `App` trait has its own `main` method. `object`  can extend `App` trait.
+
+```scala
+object HelloScala2 extends App {
+    println("Scala 123 abcd")
+}
+
+$ scalac HelloScala2.scala
+$ scala HelloScala2
+> Scala 123 abcd
+```
+
+We can access command-line arguments using `args` array. `args.size` or `args.length` can be used to check the number of elements in `args`.
+```scala
+object HelloScala3 extends App {
+    if (args.size == 0)
+        println("Hi, Scala")
+    else
+        println("Hi, " + args(0))
+}
+
+$ scalac HelloScala3.scala
+$ scala HelloScala3
+> Hi, Scala
+
+$ scala HelloScala3 Pijus
+> Hi, Pijus
+```
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
