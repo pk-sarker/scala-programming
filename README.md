@@ -404,9 +404,17 @@ res10: Some[Long] = Some(70)
 
 ```
 
-
 *None*: \
 None is a case object that represents non-existent values.
+
+There is another way to define optional value `getOrElse`:
+```scala
+scala> println(toInt("99").getOrElse(0))
+99
+
+scala> println(toInt("a").getOrElse(0))
+0
+```
 
 
 ### Reference
