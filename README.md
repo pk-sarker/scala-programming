@@ -416,6 +416,51 @@ scala> println(toInt("a").getOrElse(0))
 0
 ```
 
+#### Conversion between types (Casting)
+*Int to other types*
+Instead of using the `cast` approach in Java, use the `to*` methods that are available on
+all numeric types.
+```scala
+scala> var x = 101
+x: Int = 101
+
+scala> x.toDouble
+res0: Double = 101.0
+
+scala> x.toFloat
+res1: Float = 101.0
+
+scala> x.toLong
+res2: Long = 101
+
+scala> x.to[Tab]
+to               toByte   toDegrees   toFloat       toInt    toOctalString   toShort    
+toBinaryString   toChar   toDouble    toHexString   toLong   toRadians       toString   
+
+scala> x.toString
+res3: String = 101
+
+scala> x.toBinaryString
+res4: String = 1100101
+
+// Double to
+scala> var y = 101.7
+y: Double = 101.7
+
+scala> y.toString
+res5: String = 101.7
+
+scala> y.toInt
+res6: Int = 101
+
+scala> y.toFloat
+res7: Float = 101.7
+
+scala> y.toByte
+res8: Byte = 101
+```
+
+
 
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
