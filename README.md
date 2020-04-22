@@ -420,7 +420,7 @@ scala> println(toInt("a").getOrElse(0))
 *Int to other types*
 Instead of using the `cast` approach in Java, use the `to*` methods that are available on
 all numeric types.
-```shell script
+```scala
 scala> var x = 101
 x: Int = 101
 
@@ -465,13 +465,13 @@ Scala automatically assigns types to numeric values when you assign them, and yo
 to override the default type it assigns as you create a numeric field.
 
 If you assign 1 to a variable, Scala assigns it the type Int:
-```shell script
+```scala
 scala> val a = 1
 a: Int = 1
 ```
 
 The following examples show one way to override simple numeric types:
-```shell script
+```scala
 scala> val a = 1d
 a: Double = 1.0
 scala> val a = 1f
@@ -481,13 +481,80 @@ a: Long = 1000
 ```
 
 Another approach is to annotate the variable with a type, like this:
-```shell script
+```scala
 scala> val a = 0: Byte
 a: Byte = 0
 scala> val a = 0: Int
 a: Int = 0
 scala> val a = 0: Short
 a: Short = 0
+scala> val a = 0: Double
+a: Double = 0.0
+scala> val a = 0: Float
+a: Float = 0.0
+```
+Operations: In scala it is possible to do addition, subtraction, multiplication and division between different numeric types. The result's type will be the one with higher bits/large range.
+```scala
+scala> 1 + 1
+res0: Int = 2
+
+scala> 1 + 1l
+res1: Long = 2
+
+scala> 1f + 1l
+res2: Float = 2.0
+
+scala> 1f + 1.8
+res3: Double = 2.8
+
+scala> 1f + 1.8d
+res4: Double = 2.8
+
+scala> 1 * 3
+res5: Int = 3
+
+scala> 1 * 3l
+res6: Long = 3
+
+scala> 1 * 3f
+res7: Float = 3.0
+
+scala> 1 * 3d
+res8: Double = 3.0
+
+scala> 101+"abc"
+res9: String = 101abc
+
+scala> 101/10
+res10: Int = 10
+
+scala> 101/10f
+res11: Float = 10.1
+
+scala> 101f/10
+res12: Float = 10.1
+
+scala> 101f/10d
+res13: Double = 10.1
+``` 
+
+Unlike other languages in Scala increment `++` and decrement `--` operator is not there, because of immutability feature. 
+But, `var` fields can be mutated with the `+=`, `−=` methods:
+```scala
+scala> var a = 2
+a: Int = 2
+scala> a += 1
+scala> println(a)
+3
+scala> a −= 1
+scala> println(a)
+2
+scala> a *= 2
+scala> println(i)
+4
+scala> a /= 2
+scala> println(i)
+2
 ```
 
 It’s helpful to know about this approach when creating object instances. The general
