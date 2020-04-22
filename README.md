@@ -420,7 +420,7 @@ scala> println(toInt("a").getOrElse(0))
 *Int to other types*
 Instead of using the `cast` approach in Java, use the `to*` methods that are available on
 all numeric types.
-```scala
+```shell script
 scala> var x = 101
 x: Int = 101
 
@@ -460,7 +460,35 @@ scala> y.toByte
 res8: Byte = 101
 ```
 
+#### Overriding the Default Numeric Type
+Scala automatically assigns types to numeric values when you assign them, and you need
+to override the default type it assigns as you create a numeric field.
 
+If you assign 1 to a variable, Scala assigns it the type Int:
+```shell script
+scala> val a = 1
+a: Int = 1
+```
+
+The following examples show one way to override simple numeric types:
+```shell script
+scala> val a = 1d
+a: Double = 1.0
+scala> val a = 1f
+a: Float = 1.0
+scala> val a = 1000L
+a: Long = 1000
+```
+
+Another approach is to annotate the variable with a type, like this:
+```shell script
+scala> val a = 0: Byte
+a: Byte = 0
+scala> val a = 0: Int
+a: Int = 0
+scala> val a = 0: Short
+a: Short = 0
+```
 
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
