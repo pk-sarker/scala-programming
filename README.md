@@ -490,6 +490,16 @@ scala> val a = 0: Short
 a: Short = 0
 ```
 
+It’s helpful to know about this approach when creating object instances. The general
+syntax looks like this:
+```shell script
+// general case
+var [name]:[Type] = [initial value]
+// example
+var a:Short = 0
+```
+
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
