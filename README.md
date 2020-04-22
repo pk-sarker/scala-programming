@@ -353,6 +353,60 @@ If you prefer to declare that your method can throw an exception, mark it with t
 def toInt(s: String) = s.toInt
 ```
 
+In Scala, `Option/Some/None` pattern is used to deal with `null` value and exceptions.
+With  `Option/Some/None` pattern the above method will be like this:
+```scala
+def toInt(s: String):Option[Int] = {
+  try {
+    Some(s.toInt)
+  } catch {
+    case e: NumberFormatException => None
+  }
+}
+
+scala> toInt("5")
+res0: Option[Int] = Some(5)
+
+scala> toInt(null)
+res1: Option[Int] = None
+
+scala> toInt("")
+res2: Option[Int] = None
+```
+
+*Option*: \
+Option represents optional values. Instances of `Option` are either an instance of `scala.Some` or the object `None`.
+
+*Some*: \
+Class Some[A] represents existing values of type A. Create instance of Some. If type is not defined then scala will interpret default types, for example
+```scala
+scala> Some(6)
+res3: Some[Int] = Some(6) // Default type Int
+scala> res3.value
+res4: Int = 6
+
+scala> new Some(7.8)
+res5: Some[Double] = Some(7.8)
+scala> res5.value
+res6: Double = 7.8
+
+scala> new Some("Test")
+res7: Some[String] = Some(Test)
+scala> res7.value
+res8: String = Test
+
+// Create some with type 
+scala> new Some(5.9f) 
+res9: Some[Float] = Some(5.9)
+
+scala> new Some(70l)
+res10: Some[Long] = Some(70)
+
+```
+
+
+*None*: \
+None is a case object that represents non-existent values.
 
 
 ### Reference
