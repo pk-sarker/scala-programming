@@ -14,7 +14,10 @@ This is the code and note repository for learning Scala Programming.
     * [Compile and Run Scala](#compile-and-run-scala)
 - [Variables](#variables)
 - [Data Types](#data-types)
-
+    * [Number](#number)
+    * [String](#string)
+- [Control Structures](#control-structures)
+- [Classes and Properties](#classes-and-properties)
 - [Reference](#reference)
     
 ## Prerequisites & Installation
@@ -237,6 +240,7 @@ Data types and their ranges:
 | Char | 16-bit unsigned Unicode character (0 to 2^16-1, inclusive), 0 to 65,535 |
 | String | a sequence of Char |
 
+### Number
 To check exact value of the data ranges
 ```shell script
 scala> Byte.MinValue
@@ -566,7 +570,90 @@ var [name]:[Type] = [initial value]
 var a:Short = 0
 ```
 
+#### Floating-Point Numbers
+There is a issue while comparing two floating point numbers. In some other programming languages, two floating-point numbers that should be equivalent may not be.
+One solution is to compare floating point number up to some specific precisions.
 
+The following “approximately equals” method demonstrates the approach: 
+
+```scala
+def ~=(x: Double, y: Double, precision: Double) = {
+  if ((x - y).abs < precision) true else false
+}
+
+scala> val a = 0.3
+a: Double = 0.3
+scala> val b = 0.1 + 0.2
+b: Double = 0.30000000000000004
+scala> ~=(a, b, 0.0001)
+res0: Boolean = true
+scala> ~=(b, a, 0.0001)
+res1: Boolean = true
+
+scala> ~=(12.00001, 12.0, 0.0001)
+res23: Boolean = true
+
+scala> ~=(12.00010, 12.0, 0.0001)
+res24: Boolean = true
+
+scala> ~=(12.00011, 12.0, 0.0001)
+res25: Boolean = false
+```
+
+In Scala, 0.1 plus 0.1 is 0.2 but 0.1 plus 0.2 isn’t exactly 0.3.
+```scala
+scala> 0.1 + 0.2
+res1: Double = 0.30000000000000004
+
+scala> 0.1 + 0.2f
+res2: Double = 0.3000000029802322
+
+scala> 0.1f + 0.2
+res4: Double = 0.30000000149011613
+
+scala> 0.1f + 0.2f
+res3: Float = 0.3
+
+scala> 0.1f + 0.2
+res4: Double = 0.30000000149011613
+
+scala> 1 * 0.2
+res5: Double = 0.2
+
+scala> 1 * 0.2d
+res6: Double = 0.2
+
+scala> 0.1 * 0.2d
+res7: Double = 0.020000000000000004
+
+scala> 0.2d / 0.1
+res8: Double = 2.0
+
+scala> 0.2d / 0.1d
+res9: Double = 2.0
+
+scala> 0.2d / 0.1f
+res10: Double = 1.999999970197678
+
+scala> 0.2f / 0.1f
+res11: Float = 2.0
+
+scala> 0.2f / 0.1d
+res12: Double = 2.0000000298023224
+```
+As a result, we end up writing our own functions to compare floating-point numbers
+with a precision (or tolerance).
+You can define an implicit conversion to add a method like this to the Double class. This makes the following code very readable:
+```shell script
+if (a ~= b) ...
+
+
+object MathUtils {
+  def ~=(x: Double, y: Double, precision: Double) = {
+    if ((x - y).abs < precision) true else false
+  }
+}
+```
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
