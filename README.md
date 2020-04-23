@@ -669,6 +669,28 @@ scala> ~=(a, b, 0.0001)
 res4: Boolean = true
 ```
 
+#### Large Numbers
+Sometimes applications needs to use very large integer or decimal numbers. Scala provides `BigInt` and `BigDecimal` classes to handle large numbers.
+`BigInt` and `BigDecimal` classes support all the operators of numeric type.
+```scala
+scala> var b = BigInt(2147483647)
+b: scala.math.BigInt = 2147483647
+
+scala> var b = BigDecimal(1328345699.789)
+b: scala.math.BigDecimal = 1328345699.789
+
+scala> b + b
+res3: scala.math.BigDecimal = 2656691399.578
+
+scala> b * b
+res4: scala.math.BigDecimal = 1764502298147928114.644521
+
+scala> b += 1
+scala> println(b)
+1328345700.789
+```
+
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
