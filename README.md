@@ -690,6 +690,45 @@ scala> println(b)
 1328345700.789
 ```
 
+We can convert these large numbers to other types:
+```scala
+scala> b.toInt
+res9: Int = 1328345700
+
+scala> b.toLong
+res12: Long = 1328345700
+
+scala> b.toFloat
+res13: Float = 1.32834573E9
+
+scala> b.toDouble
+res14: Double = 1.328345700789E9
+
+```
+
+To help avoid errors, it is possible to test them first to see if they can be converted to other
+numeric types
+```scala
+scala> b.isValidByte
+res15: Boolean = false
+
+scala> b.isValidChar
+res16: Boolean = false
+
+scala> b.isValidShort
+res17: Boolean = false
+
+// b was large: 1328345700
+scala> if (b.isValidInt) b.toInt 
+res23: AnyVal = ()
+
+scala> b = 1234567891
+b: scala.math.BigDecimal = 1234567891
+
+scala> if (b.isValidInt) b.toInt 
+res24: AnyVal = 1234567891
+
+```
 
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
