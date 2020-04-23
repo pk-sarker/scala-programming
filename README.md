@@ -647,13 +647,28 @@ You can define an implicit conversion to add a method like this to the Double cl
 ```shell script
 if (a ~= b) ...
 
-
 object MathUtils {
   def ~=(x: Double, y: Double, precision: Double) = {
     if ((x - y).abs < precision) true else false
   }
 }
 ```
+
+Lets test
+```
+scala> var a = 0.3
+a: Double = 0.3
+
+scala> var b = 0.1+0.2
+b: Double = 0.30000000000000004
+
+scala> a==b
+res3: Boolean = false
+
+scala> ~=(a, b, 0.0001)
+res4: Boolean = true
+```
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
