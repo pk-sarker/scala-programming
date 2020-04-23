@@ -730,6 +730,18 @@ res24: AnyVal = 1234567891
 
 ```
 
+Depending on your needs, you may also be able to use the `PositiveInfinity` and `NegativeInfinity` of the standard numeric types:
+
+```scala
+scala> Double.PositiveInfinity
+res0: Double = Infinity
+
+scala> Double.NegativeInfinity
+res1: Double = -Infinity
+scala> 1.7976931348623157E308 > Double.PositiveInfinity
+res45: Boolean = false
+```
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
