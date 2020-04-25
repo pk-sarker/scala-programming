@@ -922,6 +922,65 @@ res60: scala.collection.immutable.IndexedSeq[Int] = Vector(1, 0, 1, 0, 1)
 scala> for (i <- 1 to 5) yield if (i % 2 == 0) i+0.5 else i
 res62: scala.collection.immutable.IndexedSeq[Double] = Vector(1.0, 2.5, 3.0, 4.5, 5.0)
 ```
+
+#### Number Formatting
+We can use `f` string interpolator for number formatting.
+```scala
+scala> val n = 1.2345678901d
+n: Double = 1.2345678901
+
+scala> println(f"$n%1.5f")
+1.23457
+
+scala> f"$n%1.5f"
+res66: String = 1.23457
+
+scala> f"$n%1.3f"
+res71: String = 1.235
+
+```
+
+For older versions(2.10) of Scala `format` method can be used.
+```scala
+scala> "%06.2f".format(n)
+res1: String = 001.23
+```
+
+We can simply add commas in number by using `getIntegerInstance` method of `java.text.NumberFormat` class.
+```scala
+scala> val formatter = java.text.NumberFormat.getIntegerInstance
+formatter: java.text.NumberFormat = java.text.DecimalFormat@674dc
+
+scala> formatter.format(1312100)
+res6: String = 1,312,100
+```
+
+For currency output, use the getCurrencyInstance formatter
+```scala
+scala> val formatter = java.text.NumberFormat.getCurrencyInstance
+formatter: java.text.NumberFormat = java.text.DecimalFormat@67500
+
+scala> println(formatter.format(123.456789))
+$123.46
+
+scala> println(formatter.format(123456.789))
+$123,456.79
+```
+
+International currency format
+```scala
+scala> val ca = Currency.getInstance(new Locale("en", "CA"))
+ca: java.util.Currency = CAD
+scala> formatter.setCurrency(ca)
+scala> println(formatter.format(12345.6789))
+
+
+scala> val gb = Currency.getInstance(new Locale("en", "GB"))
+gb: java.util.Currency = GBP
+scala> formatter.setCurrency(gb)
+scala> println(formatter.format(12345.6789))
+£12,345.68
+```
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
