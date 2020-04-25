@@ -850,6 +850,78 @@ res44: scala.collection.immutable.IndexedSeq[Char] = Vector(t, z, l, _, _)
 scala> for (i <- 1 to 5) yield r.nextPrintableChar
 res45: scala.collection.immutable.IndexedSeq[Char] = Vector(o, B, u, N, O)
 ```
+
+#### Create a Range, List, or Array of Numbers
+Sometimes we need to create a range, list, or array of numbers, such as in a for loop, or for testing
+purposes.
+
+We can use the `to` method of the `Int` class to create a Range with the desired elements:
+```scala
+scala> val range = 1 to 9
+range: scala.collection.immutable.Range.Inclusive = Range 1 to 9
+```
+We can set the step with the by method:
+```scala
+scala> val range = 1 to 9 by 2
+range: scala.collection.immutable.Range = Range 1 to 9 by 2
+scala> for (i <- range) print(i.toString() + ',')
+1,3,5,7,9,
+
+scala> val range = 1 to 9 by 3
+range: scala.collection.immutable.Range = inexact Range 1 to 9 by 3
+scala> for (i <- range2) print(i.toString() + ',')
+1,4,7,
+```
+
+Ranges are commonly used in for loops. We can use both `to` and `until` to create a range.
+```scala
+scala> for (i <- 1 to 5) println(i)
+1
+2
+3
+4
+5
+
+scala> for (i <- 1 until 5) println(i)
+1
+2
+3
+4
+```
+
+Scala makes it easy to convert a Range to other sequences, such as an _Array_ or _List_, like this
+```scala
+scala> val x = (1 to 6).toArray
+x: Array[Int] = Array(1, 2, 3, 4, 5, 6)
+
+scala> val x = (1 to 6).toList
+x: List[Int] = List(1, 2, 3, 4, 5, 6)
+```
+
+By using a range with the _for/yield_ construct, you don’t have to limit your ranges to
+sequential numbers:
+```scala
+scala> for (i <- 1 to 5) yield i.toFloat 
+res55: scala.collection.immutable.IndexedSeq[Float] = Vector(1.0, 2.0, 3.0, 4.0, 5.0)
+
+scala> for (i <- 1 to 5) yield i * .3
+res56: scala.collection.immutable.IndexedSeq[Double] = Vector(0.3, 0.6, 0.8999999999999999, 1.2, 1.5)
+
+scala> for (i <- 1 to 5) yield i * .33
+res57: scala.collection.immutable.IndexedSeq[Double] = Vector(0.33, 0.66, 0.99, 1.32, 1.6500000000000001)
+
+scala> for (i <- 1 to 5) yield i/4
+res58: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 0, 0, 1, 1)
+
+scala> for (i <- 1 to 5) yield (i/4.0)
+res59: scala.collection.immutable.IndexedSeq[Double] = Vector(0.25, 0.5, 0.75, 1.0, 1.25)
+
+scala> for (i <- 1 to 5) yield ( i % 2) 
+res60: scala.collection.immutable.IndexedSeq[Int] = Vector(1, 0, 1, 0, 1)
+
+scala> for (i <- 1 to 5) yield if (i % 2 == 0) i+0.5 else i
+res62: scala.collection.immutable.IndexedSeq[Double] = Vector(1.0, 2.5, 3.0, 4.5, 5.0)
+```
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
