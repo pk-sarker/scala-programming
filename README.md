@@ -742,6 +742,114 @@ scala> 1.7976931348623157E308 > Double.PositiveInfinity
 res45: Boolean = false
 ```
 
+#### Generating Random Numbers
+There are lot of cases where we need random numbers, like for simulation. `Scala scala.util.Random` class is used to create random numbers. 
+```scala
+scala> val r = scala.util.Random 
+r: util.Random.type = scala.util.Random$@235d29d6
+
+scala> r.nextInt
+res0: Int = -1474710074
+
+scala> r.nextInt
+res1: Int = 534715730
+
+scala> r.nextInt
+res2: Int = 1657655153
+
+// Random number within a max value
+scala> r.nextInt(99)
+res3: Int = 42
+```
+
+Random Float or Double values are also available. 
+```scala
+// returns a value between 0.0 and 1.0
+scala> r.nextFloat
+res4: Float = 0.11577231
+
+scala> r.nextFloat
+res5: Float = 0.056331694
+
+// returns a value between 0.0 and 1.0
+scala> r.nextDouble
+res7: Double = 0.27415828320555213
+
+scala> r.nextDouble
+res8: Double = 0.1241342777433202
+
+// generate random characters:
+scala> r.nextPrintableChar
+res19: Char = ]
+
+scala> r.nextPrintableChar
+res20: Char = X
+```
+
+Scala makes it easy to create a random-length range of numbers, which is especially
+useful for testing
+```scala
+scala> var range =0 to r.nextInt(11)
+range: scala.collection.immutable.Range.Inclusive = Range 0 to 1
+
+scala> var range = 0 to r.nextInt(11)
+range: scala.collection.immutable.Range.Inclusive = Range 0 to 8
+
+scala> var range = 0 to r.nextInt(11)
+range: scala.collection.immutable.Range.Inclusive = Range 0 to 5
+```
+
+We can also loop over the range and modify the values.
+```scala
+scala> for (i <- 0 to r.nextInt(10)) yield i * 2
+res23: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 2, 4, 6)
+
+scala> for (i <- 0 to r.nextInt(10)) yield i * 2
+res24: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 2, 4, 6, 8, 10, 12, 14, 16)
+
+scala> for (i <- 0 to r.nextInt(12)) yield i * 5
+res29: scala.collection.immutable.IndexedSeq[Int] = Vector(0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)
+```
+
+We can easily create random-length ranges of other types. Here’s a random-length collection of up to 10 Float values
+```scala
+scala> for(i <- 0 to r.nextInt(12)) yield (i * r.nextFloat)
+res32: scala.collection.immutable.IndexedSeq[Float] = Vector(0.0, 0.21607393, 0.5202756, 1.1856072)
+
+// random-length collection of "printable characters":
+scala> for (i <- 0 to r.nextInt(10)) yield r.nextPrintableChar
+res33: scala.collection.immutable.IndexedSeq[Char] = Vector(S, 8, g)
+
+scala> for (i <- 0 to r.nextInt(10)) yield r.nextPrintableChar
+res34: scala.collection.immutable.IndexedSeq[Char] = Vector(z, `, d, l, z)
+```
+
+Conversely, we can create a sequence of known length, filled with random numbers:
+```scala
+scala> for (i <- 1 to 5) yield r.nextInt(20)
+res38: scala.collection.immutable.IndexedSeq[Int] = Vector(19, 8, 2, 0, 8)
+
+scala> for (i <- 1 to 5) yield r.nextInt(20)
+res39: scala.collection.immutable.IndexedSeq[Int] = Vector(17, 11, 3, 3, 1)
+
+scala> for (i <- 1 to 5) yield r.nextFloat
+res40: scala.collection.immutable.IndexedSeq[Float] = Vector(0.008829951, 0.77740455, 0.7343063, 0.9767435, 0.07020533)
+
+scala> for (i <- 1 to 5) yield r.nextFloat
+res41: scala.collection.immutable.IndexedSeq[Float] = Vector(0.45545393, 0.27654696, 0.09878135, 0.33502138, 0.070942044)
+
+scala> for (i <- 1 to 5) yield r.nextDouble
+res42: scala.collection.immutable.IndexedSeq[Double] = Vector(0.4664234617338475, 0.6586058282685289, 0.6706667673202662, 0.4533951768087304, 0.04937197316237163)
+
+scala> for (i <- 1 to 5) yield r.nextDouble
+res43: scala.collection.immutable.IndexedSeq[Double] = Vector(0.6769879332369201, 0.19172008241085592, 0.8646362765809574, 0.27499514675567904, 0.5880930008910813)
+
+scala> for (i <- 1 to 5) yield r.nextPrintableChar
+res44: scala.collection.immutable.IndexedSeq[Char] = Vector(t, z, l, _, _)
+
+scala> for (i <- 1 to 5) yield r.nextPrintableChar
+res45: scala.collection.immutable.IndexedSeq[Char] = Vector(o, B, u, N, O)
+```
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
