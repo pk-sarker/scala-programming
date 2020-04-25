@@ -249,8 +249,8 @@ Data types and their ranges:
 - [Floating-Point Numbers](#floating-point-numbers)
 - [Large Numbers](#large-numbers)
 - [Generating Random Numbers](#generating-random-numbers)
-- [Create a Range, List, or Array of Numbers](#create-a-aange-list-or-array-of-numbers)
-- [Number Formatting](number-formatting)
+- [Create a Range List or Array of Numbers](#create-a-range-list-or-array-of-numbers)
+- [Number Formatting](#number-formatting)
 
 To check exact value of the data ranges
 ```shell script
