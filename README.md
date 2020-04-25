@@ -241,6 +241,17 @@ Data types and their ranges:
 | String | a sequence of Char |
 
 ### Number
+
+- [Parsing numbers from string](#parsing-numbers-from-string)
+- [Option Some None](#option-some-none)
+- [Conversion between types](#conversion-between-types)
+- [Overriding the Default Numeric Type](#overriding-the-default-numeric-type)
+- [Floating-Point Numbers](#floating-point-numbers)
+- [Large Numbers](#large-numbers)
+- [Generating Random Numbers](#generating-random-numbers)
+- [Create a Range, List, or Array of Numbers](#create-a-aange-list-or-array-of-numbers)
+- [Number Formatting](number-formatting)
+
 To check exact value of the data ranges
 ```shell script
 scala> Byte.MinValue
@@ -302,7 +313,7 @@ scala> println(b)
 1234567891
 ```
 
-**Parsing numbers from string**
+#### Parsing numbers from string
 Use the `to*` methods that are available on a String (courtesy of the `StringLike` trait):
 ```shell script
 scala> "10".toInt
@@ -357,6 +368,7 @@ If you prefer to declare that your method can throw an exception, mark it with t
 def toInt(s: String) = s.toInt
 ```
 
+#### Option Some None
 In Scala, `Option/Some/None` pattern is used to deal with `null` value and exceptions.
 With  `Option/Some/None` pattern the above method will be like this:
 ```scala
@@ -420,7 +432,7 @@ scala> println(toInt("a").getOrElse(0))
 0
 ```
 
-#### Conversion between types (Casting)
+#### Conversion between types
 *Int to other types*
 Instead of using the `cast` approach in Java, use the `to*` methods that are available on
 all numeric types.
@@ -973,7 +985,7 @@ scala> val ca = Currency.getInstance(new Locale("en", "CA"))
 ca: java.util.Currency = CAD
 scala> formatter.setCurrency(ca)
 scala> println(formatter.format(12345.6789))
-
+$12,345.68
 
 scala> val gb = Currency.getInstance(new Locale("en", "GB"))
 gb: java.util.Currency = GBP
