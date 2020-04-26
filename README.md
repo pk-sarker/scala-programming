@@ -15,8 +15,8 @@ This is the code and note repository for learning Scala Programming.
 - [Variables](#variables)
 - [Data Types](#data-types)
     * [Number](#number)
-    * [String](#string)
-- [Control Structures](#control-structures)
+    * [String](./String.md#string)
+- [Control Structures](./control-structure.md#control-structure)
 - [Classes and Properties](#classes-and-properties)
 - [Reference](#reference)
     
