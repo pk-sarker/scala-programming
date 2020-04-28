@@ -81,6 +81,7 @@ Predef provides type aliases for types which are commonly used, such as the immu
 ## Table of Contents
 - [Add Methods to Closed Classes](#add-methods-to-closed-classes)
 - [String Equality](#string-equality)
+- [Multiline Strings](#multiline-strings)
 
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
@@ -168,3 +169,24 @@ res24: Boolean = false
 In Scala, the `==` method defined in the `AnyRef` class first checks for `null` values, and then
 calls the equals method on the first object (i.e., this) to see if the two objects are equal.
 As a result, you don’t have to check for null values when comparing strings.
+
+### Multiline Strings
+In Scala multiline strings are created by surrounding texts with three double quotes:
+```scala
+scala> val s1 = """Name: ABCD
+     | Location: Toronto
+     | Age: 30"""
+s1: String =
+Name: ABCD
+Location: Toronto
+Age: 30
+
+```
+
+The results in a true multiline string, with a hidden `\n` character after the word "ABCD" and "Toronto" in the first two line. To convert this multiline string into one continuous line you can add a `replaceAll` method at the end, replacing all newline characters with blank spaces:
+```scala
+scala> val s1 = """Name: ABCD
+     | Location: Toronto
+     | Age: 30""".stripMargin.replaceAll("\n", " ")
+s1: String = Name: ABCD Location: Toronto Age: 30
+```
