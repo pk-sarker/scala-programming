@@ -83,7 +83,7 @@ Predef provides type aliases for types which are commonly used, such as the immu
 - [String Equality](#string-equality)
 - [Multiline Strings](#multiline-strings)
 - [Splitting Strings](#splitting-strings)
-
+- [Substituting Variables into Strings](#substituting-variables-into-strings)
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
 As one more example of how this pattern helps a Scala String have both string and
@@ -203,3 +203,79 @@ scala> "Scala Intro".split(" ").foreach(println)
 Scala
 Intro
 ```
+
+### Substituting Variables into Strings
+`String Interpolation` solved the problem. To use basic string interpolation in Scala, precede your string with the letter `s` and include your variables inside the string, with each variable name preceded by a `$` character.
+```scala
+scala> val name = "Jhon"
+name: String = Jhon
+
+scala> val org = "ABC Inc"
+org: String = ABC Inc
+
+scala> val moved = 10
+moved: Int = 10
+
+scala> s"Currently $name works at $org. He moved there $moved years ago."
+res5: String = Currently Jhon works at ABC Inc. He moved there 10 years ago.
+```
+
+In addition to putting variables inside strings, you can include expressions inside a string
+by placing the expression inside curly braces `{}`
+
+```scala
+scala> s"Joye works ${count + 3} hours on Friday and Saturday"
+res6: String = Joye works 8 hours on Friday and Saturday
+
+scala> case class Employee(name: String, vacation: Int)
+defined class Employee
+
+scala> val poul = Employee("Poul", 15)
+poul: Employee = Employee(Poul,15)
+
+scala> val Joice = Employee("Joice", 21)
+Joice: Employee = Employee(Joice,21)
+
+scala> s"""Name:         Vacation:
+     | ${Joice.name}          ${Joice.vacation}
+     | ${poul.name}           ${poul.vacation}"""
+res8: String =
+Name:         Vacation:
+Joice          21
+Poul           15
+```
+
+The `s` that’s placed before each string literal is actually a method. Though this seems
+slightly less convenient than just putting variables inside of strings, there are at least two
+benefits to this approach:
+* Scala provides other off-the-shelf interpolation functions to give you more power.
+* You can define your own string interpolation functions.
+
+`f` is another string interpolation function (`printf` style formatting). *f string interpolator,* which lets you use `printf` style formatting specifiers inside strings
+```scala
+scala> val salary = 123456.78901
+salary: Double = 123456.78901
+
+scala> f"Joice's yearly salary is $salary%1.3f"
+res16: String = Joice's yearly salary is 123456.789
+```
+
+We can also use the `format` method as well
+```scala
+scala> "%s's yearly vacation is %d days".format(Joice.name, Joice.vacation)
+res17: String = Joice's yearly vacation is 21 days
+```
+
+| Format specifier | Description |
+| --- | --- |
+| %c | Character |
+| %d | Decimal number (integer, base 10) |
+| %e | Exponential floating-point number |
+| %f | Floating-point number |
+| %i | Integer (base 10) |
+| %o | Octal number (base 8) |
+| %s | A string of characters |
+| %u | Unsigned decimal (integer) number |
+| %x | Hexadecimal number (base 16) |
+| %% | Print a “percent” character |
+| \% | Print a “percent” character |
