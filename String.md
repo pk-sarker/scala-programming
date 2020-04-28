@@ -82,6 +82,7 @@ Predef provides type aliases for types which are commonly used, such as the immu
 - [Add Methods to Closed Classes](#add-methods-to-closed-classes)
 - [String Equality](#string-equality)
 - [Multiline Strings](#multiline-strings)
+- [Splitting Strings](#splitting-strings)
 
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
@@ -189,4 +190,16 @@ scala> val s1 = """Name: ABCD
      | Location: Toronto
      | Age: 30""".stripMargin.replaceAll("\n", " ")
 s1: String = Name: ABCD Location: Toronto Age: 30
+```
+
+### Splitting Strings
+String split is also another common operation in string manipulation related work. `split` method in Scala is available on String objects.\
+It is actually the split method in Java. The split method returns an array of String elements, which you can then treat as a normal Scala Array
+```scala
+scala> "Scala Intro".split(" ")
+res1: Array[String] = Array(Scala, Intro)
+
+scala> "Scala Intro".split(" ").foreach(println)
+Scala
+Intro
 ```
