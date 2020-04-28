@@ -279,3 +279,58 @@ res17: String = Joice's yearly vacation is 21 days
 | %x | Hexadecimal number (base 16) |
 | %% | Print a “percent” character |
 | \% | Print a “percent” character |
+
+**The raw interpolator**\
+In addition to the `s` and `f` string interpolators, Scala 2.10 includes another interpolator
+named `raw`. The raw interpolator *"performs no escaping of literals within the string."*
+The following example shows how `raw` compares to the `s` interpolator:
+```scala
+scala> s"First\nSecond"
+res18: String =
+First
+Second
+
+scala> raw"First\nSecond"
+res20: String = First\nSecond
+```
+
+### Iterate over Characters in a String
+We can use `map` or `foreach` to iterate over the characters in a string:
+```scala
+// ASCII numbers of each character
+scala> "Scala Intro".map(c => c.toInt)
+res23: scala.collection.immutable.IndexedSeq[Int] = Vector(83, 99, 97, 108, 97, 32, 73, 110, 116, 114, 111)
+
+scala> "Scala Intro".map(c => c.toLower)
+res25: String = scala intro
+
+scala> "Scala Intro".map(_.toUpper)
+res28: String = SCALA INTRO
+
+scala> "Scala Intro".filter(_ != 'a').map(_.toUpper)
+res29: String = SCL INTRO
+
+scala> for (c <- "Scala Intro") println(c)
+S
+c
+a
+l
+a
+ 
+I
+n
+t
+r
+o
+
+scala> def cFunc(c: Char) = {
+     |   c.toInt
+     | }
+cFunc: (c: Char)Int
+
+scala> for (c <- "Scala Intro") yield cFunc(c)
+res35: scala.collection.immutable.IndexedSeq[Int] = Vector(83, 99, 97, 108, 97, 32, 73, 110, 116, 114, 111)
+
+scala> "ABCDE".map(c => (c.toByte+32+1).toChar)
+res38: String = bcdef
+```
