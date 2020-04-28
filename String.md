@@ -77,3 +77,20 @@ with the implicit conversion from String to `StringOps` in the `Predef` object.
 _**Predef**\
 The **Predef** object provides definitions that are accessible in all Scala compilation units without explicit qualification.\
 Predef provides type aliases for types which are commonly used, such as the immutable collection types `scala.collection.immutable.Map`, `scala.collection.immutable.Set`, and the `scala.collection.immutable.List` constructors (`scala.collection.immutable.::` and `scala.collection.immutable.Nil`)._
+
+## Table of Contents
+- [Add Methods to Closed Classes](#add-methods-to-closed-classes)
+
+### Add Methods to Closed Classes 
+Although String class in `Java` is *final* but with the help of *implicit conversions*.\
+As one more example of how this pattern helps a Scala String have both string and
+collection features, the following code uses the *dropRight*, *drop* and *take* methods that are available
+on Scala sequences, along with the capitalize method from the `StringOps` class:
+
+```scala
+scala> "## scala intro".dropRight(5).drop(3).take(5).capitalize
+res7: String = Scala
+``` 
+*drop* and *dropRight* are collection methods that drops (discards) the number of elements that are specified from
+the beginning and from the end of the collection and keeps the remaining elements.\
+*take* method retains the number of elements that are specified from the beginning of the collection it’s given, and discards the rest.
