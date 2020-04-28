@@ -80,6 +80,7 @@ Predef provides type aliases for types which are commonly used, such as the immu
 
 ## Table of Contents
 - [Add Methods to Closed Classes](#add-methods-to-closed-classes)
+- [String Equality](#string-equality)
 
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
@@ -94,3 +95,76 @@ res7: String = Scala
 *drop* and *dropRight* are collection methods that drops (discards) the number of elements that are specified from
 the beginning and from the end of the collection and keeps the remaining elements.\
 *take* method retains the number of elements that are specified from the beginning of the collection it’s given, and discards the rest.
+
+### String Equality
+One of the most common operation with the string is to check if two strings are the same, whether they contain the same sequence of characters.
+In Scala, comparison of two String instances are done by `==` operator. It doesn't throw `NullPointerException` if one or both string are `null`. 
+
+```scala
+scala> "Scala" == "Scala"
+res12: Boolean = true
+
+scala> "Scala" == null
+res14: Boolean = false
+
+scala> val s1 = "Scala"
+s1: String = Scala
+
+scala> val s2 = null
+s2: Null = null
+
+scala> s1 == s2
+res15: Boolean = false
+```
+
+Strings needed to convert to uppercase or lowercase to compare strings in case-insensitive manner.
+In this case it will throw `NullPointerException` if a string is `null`.
+```scala
+scala> val s1 = "Scala"
+s1: String = Scala
+
+scala> val s2 = "scala"
+s2: String = scala
+
+scala> s1 == s2
+res17: Boolean = false
+
+scala> s1.toUpperCase == s2.toUpperCase
+res18: Boolean = true
+
+scala> s1.toLowerCase == s2.toLowerCase
+res19: Boolean = true
+
+scala> val s2 = null
+s2: Null = null
+
+scala> s1.toLowerCase == s2.toLowerCase
+<console>:14: error: value toLowerCase is not a member of Null
+       s1.toLowerCase == s2.toLowerCase
+```
+
+We can also use `equals` and `equalsIgnoreCase` from `Java` String class to compare strings.
+
+```scala
+scala> s1.equals
+equals   equalsIgnoreCase
+
+scala> s1.equals(s2)
+res21: Boolean = false
+
+scala> s1.equalsIgnoreCase(s2)
+res22: Boolean = true
+
+scala> val s2 = null
+s2: Null = null
+
+scala> s1.equalsIgnoreCase(s2)
+res23: Boolean = false
+
+scala> s1.equals(s2)
+res24: Boolean = false
+```
+
+In Scala, the `==` method defined in the `AnyRef` class first checks for `null` values, and then
+calls the equals method on the first object (i.e., this) to see if the two objects are equal.
+As a result, you don’t have to check for null values when comparing strings.
