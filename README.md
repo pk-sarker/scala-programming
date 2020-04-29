@@ -205,6 +205,16 @@ val obj: Chocolate = new Chocolate("Dark")   // unnecessarily verbose
 
 
 ## Data Types
+In Scala, all values have a type, including numerical values and functions. The diagram below illustrates a subset of the type hierarchy.
+
+![Image of Types Diagram](https://docs.scala-lang.org/resources/images/tour/unified-types-diagram.svg)
+
+### Scala Type Hierarchy
+* `Any` is the supertype of all types, also called the top type. It defines certain universal methods such as `equals`, `hashCode`, and `toString`.
+* `Any` has two direct subclasses: `AnyVal` and `AnyRef`.
+* `AnyVal` represents value types. There are nine predefined value types and they are non-nullable: `Double`, `Float`, `Long`, `Int`, `Short`, `Byte`, `Char`, `Unit`, and `Boolean`.
+* `AnyRef` represents reference types. All non-value types are defined as reference types. Every user-defined type in Scala is a subtype of `AnyRef`. If Scala is used in the context of a Java runtime environment, `AnyRef` corresponds to `java.lang.Object`.
+
 In Scala all standard numeric data types are objects, not primitive data types. \
 Example of basic numeric data types
 ```scala
