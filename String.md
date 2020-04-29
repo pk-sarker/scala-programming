@@ -409,3 +409,20 @@ match1: String = 265
 ```
 
 ### Replacing Patterns in Strings
+Most often we want to search for regular-expression patterns in a string, and replace them. Because a String is *immutable*, you can’t perform find-and-replace operations directly
+ on it, but you can create a new String that contains the replaced contents. There are many ways to do that.
+ 
+We can use `replaceAll` on a String,
+```scala
+scala> "265 Main St, Toronto, ON".replaceAll("[0-9]", "__")
+res12: String = ______ Main St, Toronto, ON
+```
+
+We can create a regular expression and then call `replaceAllIn` on that expression,again remembering to assign the result to a new string
+```scala
+scala> val regex = "[0-9]".r
+regex: scala.util.matching.Regex = [0-9]
+
+scala> regex.replaceAllIn("265 Main St, Toronto, ON 123", "__")
+res13: String = ______ Main St, Toronto, ON ______
+```
