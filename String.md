@@ -88,6 +88,8 @@ Predef provides type aliases for types which are commonly used, such as the immu
 - [Pattern matching](#pattern-matching)
 - [Replacing Patterns in Strings](#replacing-patterns-in-strings)
 - [Extracting Parts of a String That Match Patterns](#extracting-parts-of-a-string-that-match-patterns)
+- [Accessing a Character in a String](#accessing-a-character-in-a-string)
+- [Add custom methods to the String](#add-custom-methods-to-the-string)
 
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
@@ -449,4 +451,32 @@ MoviesNearCityStateRE: scala.util.matching.Regex = Movies near ([A-Za-z]+), ([A-
 scala> val MoviesNearCityStateRE(city, state) = "Movies near Oakville, ON"
 city: String = Oakville
 state: String = ON
+```
+
+### Accessing a Character in a String
+we can use the Java `charAt` method to get a character at a specific position in a string:
+```scala
+scala> "Scala Intro".charAt(3)
+res15: Char = l
+```
+However, the preferred approach is to use Scala’s `Array` notation:
+```scala
+scala> "Scala Intro"(3)
+res16: Char = l
+
+scala> "Scala Intro"(2)
+res17: Char = a
+```
+
+### Add custom methods to the String
+
+We can define an `implicit` class, and then define methods within that class to implement the behavior we want:
+```scala
+scala> implicit class StringToUp(s: String) {
+     | def up = s.map(c => (c-32).toChar)
+     | }
+defined class StringToUp
+
+scala> "abcd".up
+res0: String = ABCD
 ```
