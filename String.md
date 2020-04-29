@@ -87,6 +87,7 @@ Predef provides type aliases for types which are commonly used, such as the immu
 - [Iterate over Characters in a String](#iterate-over-characters-in-a-string)
 - [Pattern matching](#pattern-matching)
 - [Replacing Patterns in Strings](#replacing-patterns-in-strings)
+- [Extracting Parts of a String That Match Patterns](#extracting-parts-of-a-string-that-match-patterns)
 
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
@@ -425,4 +426,27 @@ regex: scala.util.matching.Regex = [0-9]
 
 scala> regex.replaceAllIn("265 Main St, Toronto, ON 123", "__")
 res13: String = ______ Main St, Toronto, ON ______
+```
+
+### Extracting Parts of a String That Match Patterns
+Sometimes we want to extract one or more parts of a string that match the regular-expression
+patterns you specify.\
+To do that, first define the regular-expression patterns you want to extract, placing parentheses around them so you can extract them as “regular-expression groups.” First, define the desired pattern:
+```scala
+scala> val pattern = "([0-9]+) ([A-Za-z]+)".r
+pattern: scala.util.matching.Regex = ([0-9]+) ([A-Za-z]+)
+```
+
+Next, extract the regex groups from the target string:
+```scala
+scala> val pattern(streetNumber, streetName) = "265 MainSt"
+streetNumber: String = 265
+streetName: String = MainSt
+
+scala> val MoviesNearCityStateRE = "movies near ([A-Za-z]+), ([A-Za-z]{2})".r
+MoviesNearCityStateRE: scala.util.matching.Regex = Movies near ([A-Za-z]+), ([A-Za-z]{2})
+
+scala> val MoviesNearCityStateRE(city, state) = "Movies near Oakville, ON"
+city: String = Oakville
+state: String = ON
 ```
