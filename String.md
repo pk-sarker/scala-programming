@@ -84,6 +84,10 @@ Predef provides type aliases for types which are commonly used, such as the immu
 - [Multiline Strings](#multiline-strings)
 - [Splitting Strings](#splitting-strings)
 - [Substituting Variables into Strings](#substituting-variables-into-strings)
+- [Iterate over Characters in a String](#iterate-over-characters-in-a-string)
+- [Pattern matching](#pattern-matching)
+- [Replacing Patterns in Strings](#replacing-patterns-in-strings)
+
 ### Add Methods to Closed Classes 
 Although String class in `Java` is *final* but with the help of *implicit conversions*.\
 As one more example of how this pattern helps a Scala String have both string and
@@ -334,3 +338,74 @@ res35: scala.collection.immutable.IndexedSeq[Int] = Vector(83, 99, 97, 108, 97, 
 scala> "ABCDE".map(c => (c.toByte+32+1).toChar)
 res38: String = bcdef
 ```
+
+
+
+
+
+
+### Pattern matching
+To create a Regex object we need to invoke `.r` method in String. Then use that pattern with `findFirstIn` when you’re 
+looking for one match, and `findAllIn` when looking for all matches.
+```scala
+scala> val pattern = "[0-9]+".r
+pattern: scala.util.matching.Regex = [0-9]+
+
+scala> pattern.findFirstIn("265 Main St, Suite# 1517")
+res0: Option[String] = Some(265)
+
+scala> pattern.findAllIn("265 Main St, Suite# 1517")
+res1: scala.util.matching.Regex.MatchIterator = <iterator>
+
+scala> pattern.findAllMatchIn("265 Main St, Suite# 1517")
+res2: Iterator[scala.util.matching.Regex.Match] = <iterator>
+
+scala> pattern.findAllMatchIn("265 Main St, Suite# 1517").foreach(println)
+265
+1517
+
+scala> pattern.findAllIn("265 Main St, Suite# 1517").foreach(println)
+265
+1517
+```
+
+If `findAllIn` doesn’t find any results, an empty iterator is returned, so we can still write
+ code just like that—we don’t need to check to see if the result is `null`. If we
+rather have the results as an `Arra`y, add the `toArray` method after the `findAllIn` call:
+```scala
+scala> pattern.findAllMatchIn("265 Main St, Suite# 1517").toArray
+res6: Array[scala.util.matching.Regex.Match] = Array(265, 1517)
+
+scala> pattern.findAllMatchIn("Main St, Toronto, ON").toArray
+res7: Array[scala.util.matching.Regex.Match] = Array()
+
+scala> pattern.findAllMatchIn("265 Main St, Suite# 1517")
+res8: Iterator[scala.util.matching.Regex.Match] = <iterator>
+
+scala> pattern.findAllIn("Main St, Toronto, ON").foreach(println)
+
+```
+
+Another approach is to import the Regex class, create a Regex instance, and then use the instance
+in the same way
+```scala
+scala> import scala.util.matching.Regex
+import scala.util.matching.Regex
+
+scala> val pattern = new Regex("[0-9]+")
+pattern: scala.util.matching.Regex = [0-9]+
+
+scala> pattern.findAllMatchIn("265 Main St, Suite# 1517").toArray
+res10: Array[scala.util.matching.Regex.Match] = Array(265, 1517)
+
+scala> val match1 = pattern.findFirstIn("Main St, Toronto, ON")
+match1: Option[String] = None
+
+scala> val match1 = pattern.findFirstIn("Main St, Toronto, ON").getOrElse("Street number not found")
+match1: String = Street number not found
+
+scala> val match1 = pattern.findFirstIn("265 Main St, Toronto, ON").getOrElse("Street number not found")
+match1: String = 265
+```
+
+### Replacing Patterns in Strings
