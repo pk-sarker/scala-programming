@@ -211,6 +211,26 @@ Its good to understand how for loops are translated by Scala compiler
       }
     }
     ```     
+### Loop with multiple counter
+Sometime we need to iterate over non-linear lists/array, like multi-dimensional array. We can use for loop to do this
+```scala
+scala> for(i <- 1 to 2; j <- 1 to 2) println(s"($i, $j)")
+(1, 1)
+(1, 2)
+(2, 1)
+(2, 2)
+
+scala> for(i <- 1 to 2; j <- 1 to 2; k<- 1 to 2) println(s"($i, $j, $k)")
+(1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 2, 2)
+(2, 1, 1)
+(2, 1, 2)
+(2, 2, 1)
+(2, 2, 2)
+```
+     
 ## While loop
 
 ## Exceptional Handling
