@@ -233,5 +233,13 @@ scala> for(i <- 1 to 2; j <- 1 to 2; k<- 1 to 2) println(s"($i, $j, $k)")
      
 ## While loop
 
+```scala
+  var i = 0;
+  while (i<6) {
+    println(i)
+    i += 1
+  }
+```
+
 ## Exceptional Handling
 
