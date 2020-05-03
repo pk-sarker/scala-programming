@@ -124,6 +124,93 @@ scala> for((k, v) <- employee) println(s"Key: $k Value: $v")
 Key: name Value: John
 Key: duration Value: 5
 ```
+
+### How for loops are translated
+Its good to understand how for loops are translated by Scala compiler
+1. A simple for loop that iterates over a collection is translated to a `foreach` method
+   call on the collection.
+   ```scala
+    object LoopA extends App {
+      for (i <- 1 to 5) println(i)
+    }
+   ```
+   
+   ```scala
+   $ scalac -Xprint:parse LoopA.scala
+    [[syntax trees at end of parser]] // LoopA.scala
+    package <empty> {
+      object LoopA extends App {
+        def <init>() = {
+          super.<init>();
+          ()
+        };
+        1.to(5).foreach(((i) => println(i)))
+      }
+    }
+   ```
+   
+2. A for loop with a *guard* is translated to a sequence of a `withFilter`
+   method call on the collection followed by a foreach call.
+   ```scala
+    object LoopWIthCondition extends App {
+      for(i <- 1 to 12 if i%3 == 0) println(i)
+    }
+   ```
+   ```scala
+   $ scalac -Xprint:parse LoopWIthCondition.scala
+   
+   [[syntax trees at end of parser]] // LoopWIthCondition.scala
+   package <empty> {
+     object LoopWIthCondition extends App {
+       def <init>() = {
+         super.<init>();
+         ()
+       };
+       1.to(12).withFilter(((i) => i.$percent(3).$eq$eq(0))).foreach(((i) => println(i)))
+     }
+   }
+   ```
+3. A for loop with a `yield` expression is translated to a `map` method call on the collection. 
+    ```scala
+    object LoopWithYield extends App {
+      for { i <- 1 to 10 } yield println(i)
+    }
+    ```
+    ```scala
+    $ scalac -Xprint:parse LoopWithYield.scala
+    
+    [[syntax trees at end of parser]] // LoopWithYield.scala
+    package com.controlstructures {
+      object LoopWithYield extends App {
+        def <init>() = {
+          super.<init>();
+          ()
+        };
+        1.to(10).map(((i) => println(i)))
+      }
+    }
+    ```
+ 4. A for loop with a `yield` expression and a guard is translated to a `withFilter`
+    method call on the collection, followed by a `map` method call.
+    ```scala
+    object LoopWithConditionAndYield extends App {
+      for ( i <- 1 to 10 if i < 8) yield println(i)
+    }
+    ```
+    ```scala
+    $ scalac -Xprint:parse LoopWithConditionAndYield.scala
+    
+    [[syntax trees at end of                    parser]] // LoopWithConditionAndYield.scala
+    package <empty> {
+      object LoopWithConditionAndYield extends App {
+        def <init>() = {
+          super.<init>();
+          ()
+        };
+        1.to(10).withFilter(((i) => i.$less(8))).map(((i) => println(i)))
+      }
+    }
+    ```     
 ## While loop
 
 ## Exceptional Handling
