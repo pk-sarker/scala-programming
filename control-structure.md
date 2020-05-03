@@ -241,5 +241,9 @@ scala> for(i <- 1 to 2; j <- 1 to 2; k<- 1 to 2) println(s"($i, $j, $k)")
   }
 ```
 
+## Loop break and continue
+Sometime we need to use a break or continue construct, but Scala doesn’t have break or continue keywords.\
+Scala doesn't have break or continue statements, but we can use `scala.util.control.Breaks` 
+
 ## Exceptional Handling
 
