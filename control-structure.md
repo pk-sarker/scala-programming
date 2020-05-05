@@ -268,5 +268,63 @@ object BreakAndContinue extends App {
   println("Found " + numPs + " p's in the string.")
 }
 ```
+
+## Match Expression Like a switch Statement
+
+In Scala `match` expression like a Java switch statement
+```scala
+scala> var i = 3
+i: Int = 3
+
+scala>   i match {
+     |     case 1 => println("Monday")
+     |     case 2 => println("Tuesday")
+     |     case 3 => println("Wednesday")
+     |     case 4 => println("Thursday")
+     |     case 5 => println("Friday")
+     |     case 6 => println("Saturday")
+     |     case 7 => println("Sunday")
+     |     case whoa => println("Unexpected case: " + whoa.toString)
+     |   }
+Wednesday
+
+
+scala> val pet = "boy"
+pet: String = boy
+
+scala>   pet match {
+     |     case "girl" => println("It's a girl")
+     |     case "boy" => println("It's a boy")
+     |   }
+It's a boy
+```
+
+**@switch annotation**
+It is recommended to used @switch annotation for matching which provides a warning at compile time if the switch can’t be compiled to a `tableswitch` or `lookupswitch` \
+Compiling your match expression to a `tableswitch` or `lookupswitch` is better for performance,
+because it results in a branch table rather than a decision tree. When a value
+is given to the expression, it can jump directly to the result rather than working through
+the decision tree.
+```scala
+object SwitchAnnotation extends App {
+
+    val i = 3
+    val x = (i: @switch) match {
+      case 1 => println("Monday")
+      case 2 => println("Tuesday")
+      case 3 => println("Wednesday")
+      case 4 => println("Thursday")
+      case 5 => println("Friday")
+      case 6 => println("Saturday")
+      case 7 => println("Sunday")
+      // catch the default with a variable so you can print it
+      case _ => println("Others")
+    }
+}
+
+scala> scalac SwitchAnnotation.scala
+scala> scala SwitchAnnotation
+Wednesday
+```
 ## Exceptional Handling
 
