@@ -1,3 +1,4 @@
+# Class
 In support of object-oriented programming (OOP), Scala provides a class construct. The syntax is much more concise than languages like Java and C#, but it’s also still easy to use and read.
 
 Although Scala and Java share many similarities, the declaration of classes, class constructors,
