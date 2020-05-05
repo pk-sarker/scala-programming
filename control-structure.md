@@ -421,7 +421,35 @@ scala> i match {
 
 10-19 range: 14
 ```
+### Using a Match Expression Instead of `isInstanceOf`
+There are different ways to check object type. We can use `isInstanceOf` method:
+```scala
+if (xyz.isInstanceOf[ClassName]) {
+  // matched
+}
 
+scala> case class Person(firstName: String, lastName: String)
+defined class Person
+
+scala> val obj1 = Person("John", "Doe")
+obj1: Person = Person(John,Doe)
+
+scala> if (obj1.isInstanceOf[Person]) { 
+     | println("Object is a instance of Person class")
+     | }
+Object is a instance of Person class
+```
+
+We can also do the check with match expression: 
+```scala
+scala> def isPerson(x: Any): Boolean = x match {
+     | case p: Person => true
+     | }
+isPerson: (x: Any)Boolean
+
+scala> isPerson(obj1)
+res7: Boolean = true
+```
 ## Exceptional Handling
 val i = 6
 val evenOrOdd = i match {
