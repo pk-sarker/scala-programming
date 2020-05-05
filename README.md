@@ -17,7 +17,8 @@ This is the code and note repository for learning Scala Programming.
     * [Number](#number)
     * [String](./String.md#string)
 - [Control Structures](./control-structure.md#control-structure)
-- [Classes and Properties](#classes-and-properties)
+- [Exception-handling](./Exception-handling.md#exception-handling)
+- [Classes](#Classes.md#class)
 - [Reference](#reference)
     
 ## Prerequisites & Installation
