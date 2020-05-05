@@ -402,5 +402,29 @@ def matchPattern(x: Any): String = x match {
 case class Person(firstName: String, lastName: String)
 case class Cat(name: String)
 ```
-## Exceptional Handling
 
+**Condition in Case Statements**
+To add qualifying logic to a case statement in a match expression, such as
+allowing a range of numbers, or matching a pattern, but only if that pattern matches
+some additional criteria.
+
+```scala
+scala> val i = 14
+i: Int = 14
+
+scala> i match {
+    case a if 0 to 9 contains a => println("0-9 range: " + a)
+    case b if 10 to 19 contains b => println("10-19 range: " + b)
+    case c if 20 to 29 contains c => println("20-29 range: " + c)
+    case _ => println("Hmmm...")
+}
+
+10-19 range: 14
+```
+
+## Exceptional Handling
+val i = 6
+val evenOrOdd = i match {
+    case 1 | 3 | 5 | 7 | 9 => "odd"
+    case 2 | 4 | 6 | 8 | 10 => "even"
+}
