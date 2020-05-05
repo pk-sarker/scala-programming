@@ -421,6 +421,37 @@ scala> i match {
 
 10-19 range: 14
 ```
+
+### Binding Variables in case Clauses
+Suppose you want to extract values from an object, but you also want to assign a variable
+to the whole object itself.
+```scala
+case class Address(street: String, city: String, country: String)
+case class Person(name: String, age: Int, address: Address)
+
+val alice = Person("Alice", 25, Address("1 Scala Lane", "Chicago", "USA"))
+val bob = Person("Bob", 29, Address("2 Java Ave.", "Miami", "USA"))
+val charlie = Person("Charlie", 32, Address("3 Python Ct.", "Boston", "USA"))
+
+for (person <- Seq(alice, bob, charlie)) {
+    person match {
+        case p @ Person("Alice", 25, address) => println(s"Hi Alice! $p")
+        case p @ Person("Bob", 29, a @ Address(street, city, country)) =>
+        println(s"Hi ${p.name}! age ${p.age}, in ${a.city}")
+        case p @ Person(name, age, _) => println(s"Who are you, $age year-old person named $name? $p")
+    }
+}
+```
+
+The `p @ …` syntax assigns to `p` the whole Person instance and similarly for a @ … and
+an Address. Here is the output now (reformatted to fit the page):
+```scala
+Hi Alice! Person(Alice,25,Address(1 Scala Lane,Chicago,USA))
+Hi Bob! age 29, in Miami
+Who are you, 32 year-old person named Charlie? Person(Charlie,32,Address(3 Python Ct.,Boston,USA))
+```
+
+
 ### Using a Match Expression Instead of `isInstanceOf`
 There are different ways to check object type. We can use `isInstanceOf` method:
 ```scala
@@ -450,9 +481,4 @@ isPerson: (x: Any)Boolean
 scala> isPerson(obj1)
 res7: Boolean = true
 ```
-## Exceptional Handling
-val i = 6
-val evenOrOdd = i match {
-    case 1 | 3 | 5 | 7 | 9 => "odd"
-    case 2 | 4 | 6 | 8 | 10 => "even"
-}
+
