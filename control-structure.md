@@ -326,5 +326,81 @@ scala> scalac SwitchAnnotation.scala
 scala> scala SwitchAnnotation
 Wednesday
 ```
+
+**Matching Multiple Conditions**
+There are cases when same business logic applies for different conditions, In Java we do like this:
+```java
+public class SwitchJava {
+    public static void main(String[] args) {
+        int i = 3;
+        switch (i){
+            case 1:
+            case 2:
+            case 3:
+                System.out.println(">> One or Two or Three");
+                break;
+            case 4:
+                System.out.println(">> Four");
+                break;
+        }
+    }
+}
+```
+In Scala: 
+```scala
+object SwitchMulti extends App {
+  val i = 5
+  i match {
+    case 1 | 3 | 5 | 7 | 9 => println("odd")
+    case 2 | 4 | 6 | 8 | 10 => println("even")
+    case _ => println("doing nothing")
+  }
+}
+```
+
+Sometimes we need to match one or more patterns in a match expression, and the pattern may be
+a constant pattern, variable pattern, constructor pattern, sequence pattern, tuple pattern,
+or type pattern. We can define a case statement for each pattern you want to match.
+
+```scala
+
+def matchPattern(x: Any): String = x match {
+    // constant patterns
+    case 1 => "Int: One"
+    case "hi" => "String: Hi"
+    case true => "Boolean: true"
+    case false => "Boolean: false"
+    case Nil => "Nil: empty"
+
+    // sequence patterns
+    case List(9, _, _) => "List(9, _, _): a three-element list with 9 as the first element"
+    case List(5, _*) => "List(5, _*): a list beginning with 5, having any number of elements"
+    case Vector(1, _*) => "Vector(1, _*): a vector starting with 1, having any number of elements"
+
+    // tuples
+    case (x, y) => s"(x, y): got $x and $y"
+    case (x, y, z) => s"(x, y, z): got $x, $y, and $z"
+
+    // constructor patterns
+    case Person(first, "John") => s"found an John, first name = $first"
+    case Cat("Joyee") => "found a cat named Joyee"
+
+    // typed patterns
+    case s: String => s"you gave me this string: $s"
+    case i: Int => s"thanks for the int: $i"
+    case f: Float => s"thanks for the float: $f"
+    case a: Array[Int] => s"an array of int: ${a.mkString(",")}"
+    case as: Array[String] => s"an array of strings: ${as.mkString(",")}"
+    case d: Cat => s"cat: ${d.name}"
+    case list: List[_] => s"thanks for the List: $list"
+    case m: Map[_, _] => m.toString
+
+    // the default wildcard pattern
+    case _ => "Unknown"
+}
+
+case class Person(firstName: String, lastName: String)
+case class Cat(name: String)
+```
 ## Exceptional Handling
 
