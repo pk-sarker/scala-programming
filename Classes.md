@@ -3,6 +3,7 @@
 - [Class in Scala](#class-in-scala)
 - [Class Constructor](#class-constructor)
 - [Visibility of Constructor fields](#visibility-of-constructor-fields)
+- [Case Class](#case-class)
 
 ## Class in Scala
 In support of object-oriented programming (OOP), Scala provides a class construct. The syntax is much more concise than languages like Java and C#, but it’s also still easy to use and read.
@@ -141,7 +142,7 @@ generate a getter or setter method for the field.*
 * *Additionally, `var` and `val` fields can be modified with the `private` keyword, which
 prevents getters and setters from being generated.*
 
-**val field**
+**val field**\
 If field type is defined as  val then its immutable, we can't change it. Like final in Java.
 It should have an accessor method, and should not have a mutator method.
 
@@ -161,7 +162,7 @@ scala> p.name = "Kumar"
               ^
 ```
 
-**Fields without val or var**
+**Fields without val or var**\
 When neither val nor var are specified on constructor parameters, the visibility of the
 field becomes very restricted, and Scala doesn’t generate accessor or mutator methods
 ```scala
@@ -176,7 +177,7 @@ scala> p.name
        p.name
 ```
 
-**Adding private to val or var**
+**Adding private to val or var**\
 In addition to these three basic configurations, you can add the *private* keyword to a
 val or var field. This keyword prevents *getter* and *setter* methods from being generated,
 so the field can only be accessed from within members of the class:
@@ -191,3 +192,34 @@ scala> p.name
 <console>:13: error: variable name in class Person cannot be accessed in Person
        p.name
 ```
+
+## Case classes
+Case classes are like regular classes with a few key differences which we will go over. Case classes are good for modeling immutable data.
+
+A minimal case class requires the keywords `case class`, an identifier, and a parameter list (which may be empty):
+
+```scala
+scala> case class Perosn(name: String)
+defined class Perosn
+
+scala> val p = Perosn("Pijus Kumar")
+p: Perosn = Perosn(Pijus Kumar)
+
+scala> p.name
+res10: String = Pijus Kumar
+```
+
+`new` keyword is not required to instantiate a case class. Case class has `apply` method which takes care of object construction.
+
+When we create a case class with parameters, the parameters are public `val`
+```scala
+scala> case class Message(sender: String, recipient: String, body: String)
+defined class Message
+
+scala> val message1 = Message("pijus@email.com", "joe@email.com", "Test Message")
+message1: Message = Message(pijus@email.com,joe@email.com,Test Message)
+
+scala> println(message1.sender)
+pijus@email.com
+```
+
