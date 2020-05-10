@@ -2,6 +2,7 @@
 ## Table of Contents
 - [Class in Scala](#class-in-scala)
 - [Class Constructor](#class-constructor)
+- [Visibility of Constructor fields](#visibility-of-constructor-fields)
 
 ## Class in Scala
 In support of object-oriented programming (OOP), Scala provides a class construct. The syntax is much more concise than languages like Java and C#, but it’s also still easy to use and read.
@@ -126,4 +127,67 @@ scala> p.HOME
 
 scala> p.printHome
 HOME = /Users/pijussarker
+```
+
+## Visibility of Constructor fields
+As we have seen in the last section, the visibility of the constructor fields in Scala is controlled by whether the fields are declared as `val`, `var`, without either `val` or `var`,
+and whether `private` is also added to the fields.
+
+* *If a field is declared as a `var`, Scala generates both getter and setter methods for that
+field.*
+* *If the field is a `val`, Scala generates only a getter method for it.*
+* *If a field doesn’t have a `var` or `val` modifier, Scala gets conservative, and doesn’t
+generate a getter or setter method for the field.*
+* *Additionally, `var` and `val` fields can be modified with the `private` keyword, which
+prevents getters and setters from being generated.*
+
+**val field**
+If field type is defined as  val then its immutable, we can't change it. Like final in Java.
+It should have an accessor method, and should not have a mutator method.
+
+```scala
+scala> class Person(val name: String)
+defined class Person
+
+scala> val p = new Person("Pijus")
+p: Person = Person@293ba26c
+
+scala> p.name
+res7: String = Pijus
+
+scala> p.name = "Kumar"
+<console>:12: error: reassignment to val
+       p.name = "Kumar"
+              ^
+```
+
+**Fields without val or var**
+When neither val nor var are specified on constructor parameters, the visibility of the
+field becomes very restricted, and Scala doesn’t generate accessor or mutator methods
+```scala
+scala> class Person(name: String)
+defined class Person
+
+scala> val p = new Person("Pijus Kumar")
+p: Person = Person@7271320c
+
+scala> p.name
+<console>:13: error: value name is not a member of Person
+       p.name
+```
+
+**Adding private to val or var**
+In addition to these three basic configurations, you can add the *private* keyword to a
+val or var field. This keyword prevents *getter* and *setter* methods from being generated,
+so the field can only be accessed from within members of the class:
+```scala
+scala> class Person(private var name: String) { def getName {println(name)} }
+defined class Person
+
+scala> val p = new Person("Pijus Kumar")
+p: Person = Person@1d7914a5
+
+scala> p.name
+<console>:13: error: variable name in class Person cannot be accessed in Person
+       p.name
 ```
