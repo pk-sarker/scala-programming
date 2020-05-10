@@ -223,3 +223,14 @@ scala> println(message1.sender)
 pijus@email.com
 ```
 
+Instances of case classes are compared by structure and not by reference:
+```scala
+scala> val message1 = Message("pijus@email.com", "joe@email.com", "Test Message")
+message1: Message = Message(pijus@email.com,joe@email.com,Test Message)
+
+scala> val message2 = Message("pijus@email.com", "joe@email.com", "Test Message")
+message2: Message = Message(pijus@email.com,joe@email.com,Test Message)
+
+scala> val messagesAreTheSame = message1 == message2
+messagesAreTheSame: Boolean = true
+```
