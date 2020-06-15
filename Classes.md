@@ -234,3 +234,12 @@ message2: Message = Message(pijus@email.com,joe@email.com,Test Message)
 scala> val messagesAreTheSame = message1 == message2
 messagesAreTheSame: Boolean = true
 ```
+
+We can create a copy of the case class using `copy` method. It will be shallow copy.
+```scala
+scala> case class Pet(kind: String, name: String, adoptedOn: java.util.Date)
+scala> val current_pet = Pet("Dog", "Tom", new java.util.Date())
+current_pet: Pet = Pet(Dog,Tom,Mon Jun 15 13:19:27 BDT 2020)
+scala> val last_pet = current_pet.copy(current_pet.kind, current_pet.name, new java.util.Date())
+last_pet: Pet = Pet(Dog,Tom,Mon Jun 15 13:20:48 BDT 2020)
+```
