@@ -130,6 +130,53 @@ scala> p.printHome
 HOME = /Users/pijussarker
 ```
 
+## Auxiliary Constructor
+Auxiliary constructions provided more flexibility to instantiate a class. 
+
+Auxiliary constructors are methods in the class with the name `this`. We can
+define multiple auxiliary constructors, but they must have different signatures (parameter
+lists). Also, each constructor must call one of the previously defined constructors
+
+```scala
+class Meal(var time: String, var mainCourse: String, starter: String, dessert: String) {
+  def this(time: String) {
+    this(time, "Lunch", "Poutine","Ice Cream Sandwich")
+  }
+  def this(time: String, mainCourse: String) {
+    this(time, mainCourse, "Poutine", "Ice Cream Sandwich")
+  }
+  def this(time: String, mainCourse: String, starter: String) {
+    this(time, mainCourse, starter, "Ice Cream Sandwich")
+  }
+
+  // zero-arg auxiliary constructor
+  def this() {
+    this("Lunch",  "Smoked Meat", "Poutine", "Ice Cream Sandwich")
+  }
+
+  override def toString = s" $time =>  Main Course: $mainCourse, Starter: $starter, Dessert: $dessert "
+}
+```
+
+```scala
+scala> val lunch = new Meal()
+lunch: Meal =  Lunch =>  Main Course: Smoked Meat, Starter: Poutine, Dessert: Ice Cream Sandwich
+
+scala> lunch.toString()
+res0: String = " Lunch =>  Main Course: Smoked Meat, Starter: Poutine, Dessert: Ice Cream Sandwich "
+
+scala> val dinner = new Meal("Dinner")
+dinner: Meal =  Dinner =>  Main Course: Smoked Meat, Starter: Poutine, Dessert: Ice Cream Sandwich
+
+scala> val dinner2 = new Meal("Dinner", "Salad")
+dinner2: Meal =  Dinner =>  Main Course: Salad, Starter: Poutine, Dessert: Ice Cream Sandwich
+
+scala> val dinner3 = new Meal("Dinner", "Salad", "Chicken Wings")
+dinner3: Meal =  Dinner =>  Main Course: Salad, Starter: Chicken Wings, Dessert: Ice Cream Sandwich
+
+scala> val dinner3 = new Meal("Dinner", "Salad", "Chicken Wings", "Birthday Cake Soft Serve")
+dinner4: Meal =  Dinner =>  Main Course: Salad, Starter: Chicken Wings, Dessert: Birthday Cake Soft Serve
+```
 ## Visibility of Constructor fields
 As we have seen in the last section, the visibility of the constructor fields in Scala is controlled by whether the fields are declared as `val`, `var`, without either `val` or `var`,
 and whether `private` is also added to the fields.
