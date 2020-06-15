@@ -177,6 +177,59 @@ dinner3: Meal =  Dinner =>  Main Course: Salad, Starter: Chicken Wings, Dessert:
 scala> val dinner3 = new Meal("Dinner", "Salad", "Chicken Wings", "Birthday Cake Soft Serve")
 dinner4: Meal =  Dinner =>  Main Course: Salad, Starter: Chicken Wings, Dessert: Birthday Cake Soft Serve
 ```
+
+## Auxiliary constructors for case classes
+A *case class* is a special type of class that generates a lot of boilerplate code for us.
+Because of the way they work, adding what appears to be an auxiliary constructor to a
+case class is different than adding an auxiliary constructor to a “regular” class. This is
+because they’re not really constructors: they’re apply methods in the companion object
+of the class.
+
+To demonstrate this, assume that you start with this case class in a file named
+*Person.scala*:
+```scala
+// initial case class
+case class Person (var name: String, var age: Int)
+```
+This lets you create a new *Person* instance without using the `new` keyword, like this:
+```scala
+val p = Person("Pijus K. Sarker", 34)
+```
+This appears to be a different form of a constructor, but in fact, it’s a little syntactic sugar
+a factory method, to be precise. When you write this line of code
+```scala
+val p = Person("Pijus K. Sarker", 34)
+val p = Person.apply("Pijus K. Sarker", 34)
+```
+This is a call to an `apply` method in the companion object of the *Person* class. We don’t
+see this, you just see the line that you wrote, but this is how the compiler translates your
+code. As a result, if you want to add new “constructors” to your case class, you write
+new apply methods. (To be clear, the word “constructor” is used loosely here.)
+
+To add auxiliary constructors to let you create new *Person* instances (a) without specifying any parameters, and (b) by only specifying their name, 
+the solution is to add apply methods to the companion object of the *Person* case class in the *Person.scala* file:
+```scala
+// the case class
+case class Person (var name: String, var age: Int)
+
+// the companion object
+object Person {
+  def apply() = new Person("<no name>", 0)
+  def apply(name: String) = new Person(name, 0)
+}
+```
+
+```scala
+scala> val a = Person()
+a: Person = Person(<no name>,0)
+
+scala> val b = Person("Pijus K. Sarker")
+b: Person = Person(Pijus K. Sarker,0)
+
+scala> val c = Person("Pijus K. Sarker", 34)
+c: Person = Person(Pijus K. Sarker,34)
+```
+
 ## Visibility of Constructor fields
 As we have seen in the last section, the visibility of the constructor fields in Scala is controlled by whether the fields are declared as `val`, `var`, without either `val` or `var`,
 and whether `private` is also added to the fields.
