@@ -4,6 +4,7 @@
 - [Class Constructor](#class-constructor)
 - [Visibility of Constructor fields](#visibility-of-constructor-fields)
 - [Private Primary Constructor](#private-primary-constructor)
+- [Default Values for Constructor Parameters](#default-values-for-constructor-parameters)
 - [Case Class](#case-class)
 
 ## Class in Scala
@@ -434,6 +435,32 @@ res4: String = Jhon
 
 scala> s3.getRank()
 res5: Int = 9
+```
+
+## Default Values for Constructor Parameters
+We can provide the parameter a default value in the constructor declaration:
+
+```scala
+scala> class Connect (val host: String = "localhost", val port: Int = 8080)
+defined class Connect
+
+scala> val connect = new Connect()
+connect: Connect = Connect@31f4fdc5
+
+scala> connect.host
+res6: String = localhost
+
+scala> connect.port
+res7: Int = 8080
+
+scala> val connect1 = new Connect("127.0.0.1", 8090)
+connect1: Connect = Connect@5ceb6796
+
+scala> connect1.host
+res8: String = 127.0.0.1
+
+scala> connect1.port
+res9: Int = 8090
 ```
 ## Case classes
 Case classes are like regular classes with a few key differences which we will go over. Case classes are good for modeling immutable data.
