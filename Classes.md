@@ -3,6 +3,7 @@
 - [Class in Scala](#class-in-scala)
 - [Class Constructor](#class-constructor)
 - [Visibility of Constructor fields](#visibility-of-constructor-fields)
+- [Private Primary Constructor](#private-primary-constructor)
 - [Case Class](#case-class)
 
 ## Class in Scala
@@ -293,6 +294,147 @@ scala> p.name
        p.name
 ```
 
+## Private Primary Constructor
+To make the primary constructor private, insert the `private` keyword in between the class name and any parameters the constructor accepts:
+```scala
+// a private no-args primary constructor
+class Person private { 
+.
+.
+}
+
+// a private one-arg primary constructor
+class Student private (name: String) {
+.
+.
+}
+```
+We can't instantiate the classes in usual way using the new keyword because the constructor is private.
+```scala
+class Student private (var name: String, val rank: Int){
+  def getName(): String = {
+    name;
+  }
+  def getRank(): Int = {
+    rank;
+  }
+  def setName(n: String) {
+    name = n
+  }
+}
+
+scala> var s = new Student("John", 55)
+<console>:12: error: constructor Student in class Student cannot be accessed in object $iw
+       var s = new Student("John", 55)
+``` 
+We can create the instance of the class from its companion object. This is a way to enforce the Singleton pattern in Scala is to make the primary constructor private, then put a `getInstance` method in the companion object of the class:
+
+```scala
+class Student private (var name: String, val rank: Int){
+  def getName(): String = {
+    name;
+  }
+  def getRank(): Int = {
+    rank;
+  }
+  def setName(n: String) {
+    name = n
+  }
+}
+
+object Student {
+  val student = new Student("Pijus", 4)
+  def getInstance = student
+}
+
+
+scala> val s = Student.getInstance
+s: Student = Student@601d6622
+
+scala> s.getName()
+res0: String = Pijus
+
+scala> s.getRank()
+res1: Int = 4
+
+scala> val s1 = Student.getInstance
+s1: Student = Student@601d6622
+
+scala> s1.getName()
+res2: String = Pijus
+
+scala> s1.getRank()
+res3: Int = 4
+
+scala> s1.setName("Kumar")
+
+scala> s1.getName()
+res5: String = Kumar
+
+scala> s.getName()
+res6: String = Kumar
+```
+
+In the above example we have created a Singleton pattern where the objects gets refers to one instance of `Student` class.
+In  `Student` class we can change the name because `name` is defined as `var` and and `rank` as `val` and we have a setter method `setName()`.
+
+Consider a situation where you will be creating a instance of a class with fixed values and don't change anything afterwords. 
+```scala
+class Student private (val name: String, val rank: Int){
+
+  def getName(): String = {
+    name;
+  }
+
+  def getRank(): Int = {
+    rank;
+  }
+}
+
+object Student {
+  var student = new Student("", -1) // default value
+  def getInstance(name: String, rank: Int): Student = {
+    if (student.getName() == ""  && student.getRank() == -1) {
+      student = new Student(name, rank)
+    }
+    return student
+  }
+
+  def getInstance(): Student = student
+}
+```
+By changing the type of name and rank to val make sure that the values are immutable, so you can't reassign them. 
+In the companion object, we have defined student with default value until you set something. Once `def getInstance(name: String, rank: Int)` is called with values other than default values (empty string and -1) 
+a new instance of Student class is instantiated and will be returned when `getInstance` method is called.
+
+```scala
+scala> var s1 = Student.getInstance("Jhon", 9)
+s1: Student = Student@415a3f6a
+
+scala> s1.getName()
+res0: String = Jhon
+
+scala> s1.getRank()
+res1: Int = 9
+
+scala> var s2 = Student.getInstance()
+s2: Student = Student@415a3f6a
+
+scala> s2.getName()
+res2: String = Jhon
+
+scala> s2.getRank()
+res3: Int = 9
+
+scala> var s3 = Student.getInstance("Josheph", 10)  // It will discard the inputs as the instance of the Student class is already created.
+s3: Student = Student@415a3f6a
+
+scala> s3.getName()
+res4: String = Jhon
+
+scala> s3.getRank()
+res5: Int = 9
+```
 ## Case classes
 Case classes are like regular classes with a few key differences which we will go over. Case classes are good for modeling immutable data.
 
