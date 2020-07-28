@@ -12,6 +12,7 @@ This is the code and note repository for learning Scala Programming.
     * [Scala Environment](#scala-environment)
     * [Scala REPL](#scala-repl)
     * [Compile and Run Scala](#compile-and-run-scala)
+    * [Lazy Evaluation](#lazy-evaluation)
 - [Variables](#variables)
 - [Data Types](#data-types)
     * [Number](#number)
@@ -1005,6 +1006,36 @@ scala> formatter.setCurrency(gb)
 scala> println(formatter.format(12345.6789))
 £12,345.68
 ```
+
+#### Lazy Evaluation
+Lazy evaluation is a strategy where an expression is not evaluated until required or called or first used.
+Lazy evaluation helps us in optimizing the process by evaluating the expression only when it’s needed and avoiding unnecessary overhead. Use 
+`lazy` keyword before any expression to make it lazy evaluation.
+
+Here is an example of without lazy evaluation
+```scala
+scala> val num = List(1,3,5,7,9,11)
+num: List[Int] = List(1, 3, 5, 7, 9, 11)
+
+scala> val multiply = num.map(i => i*2)
+multiply: List[Int] = List(2, 6, 10, 14, 18, 22)
+
+scala> println(multiply)
+List(2, 6, 10, 14, 18, 22)
+``` 
+
+Example with lazy evaluation
+```scala
+scala> val num = List(1,3,5,7,9,11)
+num: List[Int] = List(1, 3, 5, 7, 9, 11)
+
+scala> lazy val multiply2 = num.map(i => i*2)
+multiply2: List[Int] = <lazy>
+
+scala> println(multiply2)
+List(2, 6, 10, 14, 18, 22)
+```
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
