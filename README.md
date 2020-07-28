@@ -1036,6 +1036,76 @@ scala> println(multiply2)
 List(2, 6, 10, 14, 18, 22)
 ```
 
+#### First Class Function
+One of the feature of functional programming is that functions should be *first-class*. *first-class* means not only declared and invoked 
+but can be used anywhere in the code segment like other data types. A first-class function may be created in literal form without ever been assigned an identifier, and 
+stored in a container such as values, variables or data structures. First-class functions can be used as a parameter to another function or used as a return value from 
+another function.
+
+*Assign function as Variable*\
+We can define a function literal that takes an integer and returns its tripple in following manner:
+```scala
+scala> (i: Int) => (i * 3)
+res1: Int => Int = $Lambda$1138/0x000000080119d840@682e445e
+
+scala> val tripple = (i: Int) => (i * 3)
+tripple: Int => Int = $Lambda$1139/0x000000080119e840@6f867b0c
+
+scala> tripple(3)
+res2: Int = 9
+```
+
+*Pass function as Parameter*\
+We can create a function or a method that takes a function as a parameter. Lets create a method that takes a function as a parameter:
+```scala
+scala> def merge(a: Array[Int], b: Array[Int], fnParam:(Array[Int], Array[Int]) => Array[Int]){
+    val res: Array[Int] = fnParam(a,b);
+    for(i <- 0 to res.length-1) {
+      print(res(i) + " ");
+    }
+}
+merge: (a: Array[Int], b: Array[Int], fnParam: (Array[Int], Array[Int]) => Array[Int])Unit
+
+scala> val merger = (a:Array[Int], b:Array[Int]) => a ++ b
+merger: (Array[Int], Array[Int]) => Array[Int] = $Lambda$1254/0x00000008011f7840@3709748f
+
+scala> merge(Array(1,3,5,7), Array(2,4,6), merger)
+1 3 5 7 2 4 6 
+```
+**Return a Function**\
+Here is an example where a function returns a function to tripple a number
+```scala
+scala> def trippler()= (num:Int) => num * 3;
+trippler: ()Int => Int
+
+scala> val trippleValue = trippler();
+trippleValue: Int => Int = $Lambda$1269/0x000000080120a040@1be77a76
+
+scala> trippleValue(7)
+res1: Int = 21
+```
+
+#### Higher-Order Function
+Functions that accept other functions as parameters and/or use functions as return values are known as *higher-order* functions. 
+The *map()* higher-order function takes a function parameter and uses it to convert one or more items to a new value and/or type.
+The reduce() higher-order function takes a function parameter and uses it to reduce a collection of multiple items down to a single item.
+One of the benefits of using higher-order functions to work with data is that the actual how of processing the data is left as 
+an implementation detail to the framework that has the higher-order function. A caller can specify what should be done and leave the higher-order functions to handle the actual logic flow.
+
+Here is an example, where we do string operation. The string operation function is passed as function parameter.
+```scala
+scala> def safeStringOp(s: String, f: String => String) = {
+    if (s != null) f(s) else s
+}
+safeStringOp: (s: String, f: String => String)String
+
+scala> def reverser(s: String) = s.reverse
+reverser: (s: String)String
+
+scala> safeStringOp("ramuK sujiP", reverser)
+res0: String = Pijus Kumar
+```
+
 ### Reference
 [1] [Scala Documentation](https://docs.scala-lang.org)\
 [2] Programming in Scala: A Comprehensive Step-by-Step Guide, (3rd ed.) [Martin Odersky, Lex Spoon and Bill Venners, 2016]\
